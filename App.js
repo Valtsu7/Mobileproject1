@@ -1,20 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from './components/Home';
+import Login from './components/Login';
+import ShoppingList from './components/Shoppinglist';
+import Profile from './components/Profile';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your APP!!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        sceneContainerStyle={{ backgroundColor: 'transparent' }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? 'information'
+                : 'information-outline';
+            } else if (route.name === 'Login') {
+              iconName = focused 
+                ? 'dice-multiple'
+                : 'dice-multiple-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused 
+                ? 'view-list'
+                : 'view-list-outline';
+            }
+             else if (route.name === 'ShoppingList') {
+              iconName = focused 
+                ? 'view-list'
+                : 'view-list-outline';
+          }
+            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'steelblue',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen name='Home' component={Home} options={{ tabBarStyle: { display: 'none' } }} />
+        <Tab.Screen name='Login' component={Login}/>
+        <Tab.Screen name='Profile' component={Profile}/>
+        <Tab.Screen name='ShoppingList' component={ShoppingList}/>
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
