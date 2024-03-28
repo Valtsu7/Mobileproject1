@@ -41,7 +41,7 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name='Home' component={Home} options={{ tabBarStyle: { display: 'none' } }} />
+        <Tab.Screen name='Home' component={Home}  />
         <Tab.Screen name='Login' component={Login}/>
         <Tab.Screen name='Profile' component={Profile}/>
         <Tab.Screen name='ShoppingList' component={ShoppingList}/>
