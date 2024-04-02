@@ -5,6 +5,7 @@ import Login from './components/Login';
 import ShoppingList from './components/Shoppinglist';
 import Profile from './components/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import AddRecipe from './components/AddRecipe';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,20 +22,22 @@ export default function App() {
               iconName = focused
                 ? 'home-circle'
                 : 'home-circle-outline';
-            } else if (route.name === 'Login') {
+            } else if (route.name === 'Add Recipe') {
               iconName = focused 
                 ? 'login'
                 : 'logout';
-            } else if (route.name === 'Profile') {
-              iconName = focused 
-                ? 'food-apple'
-                : 'food-apple-outline';
-            }
-             else if (route.name === 'ShoppingList') {
+                
+            } else if (route.name === 'Shopping List') {
               iconName = focused 
                 ? 'cart'
                 : 'cart-outline';
-          }
+            }
+             else if (route.name === 'Profile') {
+              iconName = focused 
+              ? 'food-apple'
+              : 'food-apple-outline';
+            }
+          
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'green',
@@ -42,9 +45,9 @@ export default function App() {
         })}
       >
         <Tab.Screen name='Home' component={Home}  />
-        <Tab.Screen name='Login' component={Login}/>
+        <Tab.Screen name='Add Recipe' component={AddRecipe}/>
+        <Tab.Screen name='Shopping List' component={ShoppingList}/>
         <Tab.Screen name='Profile' component={Profile}/>
-        <Tab.Screen name='ShoppingList' component={ShoppingList}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
