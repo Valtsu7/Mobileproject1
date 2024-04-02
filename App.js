@@ -22,6 +22,7 @@ export default function App() {
               iconName = focused
                 ? 'home-circle'
                 : 'home-circle-outline';
+
             } else if (route.name === 'Add Recipe') {
               iconName = focused 
                 ? 'login'
@@ -34,8 +35,8 @@ export default function App() {
             }
              else if (route.name === 'Profile') {
               iconName = focused 
-              ? 'food-apple'
-              : 'food-apple-outline';
+                ? 'food-apple'
+                : 'food-apple-outline';
             }
           
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
