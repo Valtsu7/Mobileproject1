@@ -24,8 +24,8 @@ export default function App() {
                 : 'home-circle-outline';
             } else if (route.name === 'Add Recipe') {
               iconName = focused 
-                ? 'login'
-                : 'logout';
+                ? 'plus-circle'
+                : 'plus-circle-outline';
                 
             } else if (route.name === 'Shopping List') {
               iconName = focused 
