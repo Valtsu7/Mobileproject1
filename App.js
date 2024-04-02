@@ -19,25 +19,25 @@ export default function App() {
 
             if (route.name === 'Home') {
               iconName = focused
-                ? 'information'
-                : 'information-outline';
+                ? 'home-circle'
+                : 'home-circle-outline';
             } else if (route.name === 'Login') {
               iconName = focused 
-                ? 'dice-multiple'
-                : 'dice-multiple-outline';
+                ? 'login'
+                : 'logout';
             } else if (route.name === 'Profile') {
               iconName = focused 
-                ? 'view-list'
-                : 'view-list-outline';
+                ? 'food-apple'
+                : 'food-apple-outline';
             }
              else if (route.name === 'ShoppingList') {
               iconName = focused 
-                ? 'view-list'
-                : 'view-list-outline';
+                ? 'cart'
+                : 'cart-outline';
           }
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'steelblue',
+          tabBarActiveTintColor: 'green',
           tabBarInactiveTintColor: 'gray',
         })}
       >
