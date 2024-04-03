@@ -59,4 +59,23 @@ export default StyleSheet.create({
     top: 10, 
     left: 0,
   },
+
+  text: {
+    fontSize: 22, 
+    position: 'absolute', 
+    top: 230, 
+    left: 40, 
+   
+  }, 
+
+  text1: {
+    fontSize: 15, 
+    fontWeight: 'bold',
+    position: 'absolute', 
+    top: 290, 
+    left: 55, 
+   
+  }, 
+
+
 });

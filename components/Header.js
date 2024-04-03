@@ -8,7 +8,7 @@ export default function Header() {
     <View style={styles.header}>
       
       <Image
-              source={require('../assets/food.png.jpg')}
+              source={require('../assets/food2.jpg')}
               style={styles.foodImage}
             />
 
