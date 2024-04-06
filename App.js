@@ -1,11 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from './components/Home';
-import Login from './components/Login';
-import ShoppingList from './components/Shoppinglist';
-import Profile from './components/Profile';
+import Home from './screens/Home';
+import Login from './screens/Login';
+import ShoppingList from './screens/Shoppinglist';
+import Profile from './screens/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AddRecipe from './components/AddRecipe';
+import AddRecipe from './screens/AddRecipe';
 
 const Tab = createBottomTabNavigator();
 
