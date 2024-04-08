@@ -1,9 +1,10 @@
 import { View, Text } from "react-native"
+import styles from '../style/style';
 
 export default AddRecipe = (navigation, route) =>{
     return(
         <View>
-            <Text>this is Addrecipe</Text>
+            <Text style={styles.text}>Add your own recipe</Text>
         </View>
     )
 }

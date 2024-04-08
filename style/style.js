@@ -24,11 +24,11 @@ export default StyleSheet.create({
     borderBottomColor: '#ddd',
   },
   logoContainer: {
-    // Voit lisätä tarvittavat tyylit logon kohdalle
+    
   },
   logo: {
-    width: 60, // Muuta kuvan leveys sopivaksi
-    height: 60, // Muuta kuvan korkeus sopivaksi
+    width: 60, 
+    height: 60, 
   },
 
   logo2: {
@@ -48,7 +48,6 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: '#f2f2f2',
     borderRadius: 20,
-    // Pienempi koko hakukentälle
     height: 36,
   },
   searchInput: {
