@@ -30,6 +30,14 @@ export default StyleSheet.create({
     width: 60, 
     height: 60, 
   },
+
+  logo2: {
+    width: 60, // Muuta kuvan leveys sopivaksi
+    height: 60, // Muuta kuvan korkeus sopivaksi
+    position: 'absolute',
+    left: 300
+  },
+
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
