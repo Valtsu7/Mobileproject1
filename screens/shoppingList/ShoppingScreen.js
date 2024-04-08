@@ -1,57 +1,83 @@
+
+// import React, { useState } from 'react';
+// import { View, Text, Button, TextInput, FlatList, TouchableOpacity } from 'react-native';
+// import ShoppingListItem from '../../components/ShoppingListItem';
+
+// const ShoppingScreen = () => {
+//   const [newItem, setNewItem] = useState('');
+//   const [shoppingList, setShoppingList] = useState([]);
+  
+//   const addItem = () => {
+//     if (newItem.trim() !== '') {
+//       setShoppingList([...shoppingList, newItem]);
+//       setNewItem('');
+//     }
+//   };
+
+//   const removeItem = (item) => {
+//     setShoppingList(shoppingList.filter((listItem) => listItem !== item));
+//   };
+
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <FlatList
+//         data={shoppingList}
+//         renderItem={({ item }) => (
+//           <ShoppingListItem
+//             item={item}
+//             onRemove={() => removeItem(item)}
+//           />
+//         )}
+//         keyExtractor={(item, index) => index.toString()}
+//       />
+//       <TextInput
+//         style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
+//         onChangeText={text => setNewItem(text)}
+//         value={newItem}
+//         placeholder="Enter item"
+//       />
+//       <Button title="Add Item" onPress={addItem} />
+//     </View>
+//   );
+// };
+
+// export default ShoppingScreen;
+// screens/shoppingList/ShoppingScreen.js
+// screens/shoppingList/ShoppingScreen.js
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, FlatList, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import ShoppingList from '../../components/Shoppinglist'; // Adjust the import path as needed
+import { View, Text, Button, Modal, TouchableOpacity } from 'react-native';
+import CreateShoppingListScreen from './CreateShoppingListScreen';
 
-const ShoppingScreen = () => {
-  const [item, setItem] = useState('');
-  const [shoppingList, setShoppingList] = useState(new ShoppingList());
-
-  const addItemToShoppingList = () => {
-    if (item.trim() !== '') {
-      shoppingList.addItem(item);
-      setItem('');
-      // No need to spread the shoppingList here
-      setShoppingList(shoppingList); // Update state
-    }
-  };
-
-  const removeItemFromShoppingList = (item) => {
-    shoppingList.removeItem(item);
-    setShoppingList(shoppingList); // Update state
-  };
-  const saveShoppingList = async () => {
-    try {
-      // Save the shopping list data to AsyncStorage
-      await AsyncStorage.setItem('shoppingList', JSON.stringify(shoppingList.getItems()));
-      Alert.alert('Shopping List Saved', 'Your shopping list has been saved.');
-    } catch (error) {
-      console.error('Error saving shopping list:', error);
-      Alert.alert('Error', 'Failed to save shopping list.');
-    }
-  };
+const ShoppingScreen = ({ navigation }) => {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Here you can create new shopping lists to simplify your cooking experience!</Text>
-      <FlatList
-        data={shoppingList.items} // Access the items directly
-        renderItem={({ item }) => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text>{item}</Text>
-            <Button title="Remove" onPress={() => removeItemFromShoppingList(item)} />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
+            <Text style={{ marginBottom: 20 }}>Do you want to create a new shopping list or browse old shopping lists?</Text>
+            <Button title="Create New Shopping List" onPress={() => {
+              navigation.navigate('CreateShoppingList'); // Navigate to create new shopping list screen
+              setModalVisible(false);
+            }} />
+            <Button title="Browse Old Shopping Lists" onPress={() => {
+              // Navigate to browse old shopping lists screen
+              setModalVisible(false);
+            }} />
           </View>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      <TextInput
-        style={{marginBottom: 100, height: 40, width: 200, borderColor: 'gray', borderWidth: 1 }}
-        onChangeText={text => setItem(text)}
-        value={item}
-        placeholder="Enter item"
-      />
-      <Button title="Add Item" onPress={addItemToShoppingList} />
-      <Button title="Save" onPress={saveShoppingList} /> 
+        </View>
+      </Modal>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Text style={{ fontSize: 20, marginBottom: 20 }}>Start Shopping</Text>
+      </TouchableOpacity>
     </View>
   );
 };
