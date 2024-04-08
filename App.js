@@ -9,6 +9,9 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './screens/AddRecipe';
 import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
 import CreateShoppingListScreen from './screens/shoppingList/CreateShoppingListScreen';
+import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingListsScreen';
+import ShoppingListDetailsScreen from './screens/shoppingList/ShoppingListDetailsScreen';
+import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -20,6 +23,9 @@ const ShoppingStack = () => {
     <Stack.Navigator>
       <Stack.Screen name="ShoppingScreen" component={ShoppingScreen} />
       <Stack.Screen name="CreateShoppingList" component={CreateShoppingListScreen} />
+      <Stack.Screen name="BrowseShoppingList" component={BrowseShoppingListsScreen} />
+      <Stack.Screen name="ShoppingListDetails" component={ShoppingListDetailsScreen} /> 
+      <Stack.Screen name="EditShoppingList" component={EditShoppingListScreen} /> 
     </Stack.Navigator>
   );
 };
@@ -62,7 +68,7 @@ export default function App() {
       >
         <Tab.Screen name='Home' component={Home}  />
         <Tab.Screen name='Add Recipe' component={AddRecipe}/>
-        <Tab.Screen name='Shopping List' component={ShoppingScreen}/>
+        <Tab.Screen name='Shopping List' component={ShoppingStack}/>
         <Tab.Screen name='Profile' component={Profile}/>
       </Tab.Navigator>
     </NavigationContainer>
