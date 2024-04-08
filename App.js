@@ -1,11 +1,13 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from './components/Home';
 import Login from './components/Login';
-import ShoppingList from './components/Shoppinglist';
+ // import ShoppingList from './components/shoppingList/Shoppinglist';
 import Profile from './components/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './components/AddRecipe';
+import ShoppingScreen from './components/shoppingList/ShoppingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +48,7 @@ export default function App() {
       >
         <Tab.Screen name='Home' component={Home}  />
         <Tab.Screen name='Add Recipe' component={AddRecipe}/>
-        <Tab.Screen name='Shopping List' component={ShoppingList}/>
+        <Tab.Screen name='Shopping List' component={ShoppingScreen}/>
         <Tab.Screen name='Profile' component={Profile}/>
       </Tab.Navigator>
     </NavigationContainer>
