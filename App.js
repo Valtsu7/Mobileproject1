@@ -1,13 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from './components/Home';
-import Login from './components/Login';
- // import ShoppingList from './components/shoppingList/Shoppinglist';
-import Profile from './components/Profile';
+import Home from './screens/Home';
+import Login from './screens/Login';
+import Profile from './screens/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AddRecipe from './components/AddRecipe';
-import ShoppingScreen from './components/shoppingList/ShoppingScreen';
+import AddRecipe from './screens/AddRecipe';
+import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +23,7 @@ export default function App() {
               iconName = focused
                 ? 'home-circle'
                 : 'home-circle-outline';
+
             } else if (route.name === 'Add Recipe') {
               iconName = focused 
                 ? 'plus-circle'
@@ -36,8 +36,8 @@ export default function App() {
             }
              else if (route.name === 'Profile') {
               iconName = focused 
-              ? 'food-apple'
-              : 'food-apple-outline';
+                ? 'food-apple'
+                : 'food-apple-outline';
             }
           
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;

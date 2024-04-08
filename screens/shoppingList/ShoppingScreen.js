@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, TextInput, FlatList, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ShoppingList from './Shoppinglist'; // Adjust the import path as needed
+import ShoppingList from '../../components/Shoppinglist'; // Adjust the import path as needed
 
 const ShoppingScreen = () => {
   const [item, setItem] = useState('');
