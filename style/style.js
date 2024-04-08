@@ -1,12 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 
 export default StyleSheet.create({
+ 
+  container: {
+    flex: 1,
+    
+  },
+  scrollView: {
+    backgroundColor: '#fff',
+    marginHorizontal: 0,
+  },
+ 
+ 
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
+    marginBottom: 150, 
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
@@ -62,18 +74,15 @@ export default StyleSheet.create({
 
   text: {
     fontSize: 22, 
-    position: 'absolute', 
-    top: 230, 
-    left: 40, 
+    marginLeft: 40,
    
   }, 
 
   text1: {
     fontSize: 15, 
     fontWeight: 'bold',
-    position: 'absolute', 
-    top: 290, 
-    left: 55, 
+    marginLeft: 60, 
+    marginTop: 30, 
    
   }, 
 
