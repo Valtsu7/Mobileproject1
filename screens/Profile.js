@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native"
+import { View, Text, Image, Pressable, Button } from "react-native"
 import styles from "../style/style"
 
 export default Profile = (navigation, route) =>{
