@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Image, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, Alert, ScrollView, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 
 const AddRecipe = () => {
-  const [recipeImage, setRecipeImage] = useState(null);
-  const [recipeText, setRecipeText] = useState('');
+  const [recipeName, setRecipeName] = useState('');
+  const [recipeDetails, setRecipeDetails] = useState('');
+  const [recipeIngredients, setRecipeIngredients] = useState('');
+  const [recipeInstructions, setRecipeInstructions] = useState('');
+  const [recipeImage, setRecipeImage] = useState(null); // Lisätty reseptikuvan tila
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -26,7 +30,7 @@ const AddRecipe = () => {
 
   const saveRecipe = async () => {
     try {
-      const newRecipe = { recipeImage, recipeText };
+      const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions };
       const updatedRecipes = [...recipes, newRecipe];
 
       await AsyncStorage.setItem('recipes', JSON.stringify(updatedRecipes));
@@ -35,8 +39,11 @@ const AddRecipe = () => {
         { text: 'OK' }
       ]);
 
-      setRecipeImage(null);
-      setRecipeText('');
+      setRecipeName('');
+      setRecipeDetails('');
+      setRecipeIngredients('');
+      setRecipeInstructions('');
+      setRecipeImage(null); 
       setRecipes(updatedRecipes);
     } catch (error) {
       console.error('Error saving recipe: ', error);
@@ -55,46 +62,84 @@ const AddRecipe = () => {
     }
   };
 
+
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+
+    setRecipeImage(pickerResult.uri);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Add your own recipe</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter recipe image URL"
-        value={recipeImage}
-        onChangeText={setRecipeImage}
-      />
-
-      <TextInput
-        style={[styles.input, { height: 100 }]}
-        placeholder="Enter recipe text"
-        multiline
-        value={recipeText}
-        onChangeText={setRecipeText}
-      />
-
-      {recipeImage && (
-        <Image
-          source={{ uri: recipeImage }}
-          style={{ width: 200, height: 200, marginBottom: 10 }}
-        />
-      )}
-
-      <Button title="Save Recipe" onPress={saveRecipe} />
-
-      <Button title="Clear All Recipes" onPress={clearAllRecipes} />
-
       <ScrollView>
+        <Text style={styles.text}>Add your own recipe</Text>
+   
+        <Pressable onPress={pickImage} style={styles.button}>
+          <Text style={styles.buttonText}>Pick a Recipe Image</Text>
+        </Pressable>
+
+       <View style={styles.input1} >
+
+        <TextInput
+          style={styles.input}
+          placeholder="Recipe Name"
+          value={recipeName}
+          onChangeText={setRecipeName}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Recipe Details"
+          value={recipeDetails}
+          onChangeText={setRecipeDetails}
+        />
+
+        <TextInput
+          style={[styles.input, { height: 100 }]}
+          placeholder="Recipe Ingredients"
+          multiline
+          value={recipeIngredients}
+          onChangeText={setRecipeIngredients}
+        />
+
+        <TextInput
+          style={[styles.input, { height: 100 }]}
+          placeholder="Recipe Instructions"
+          multiline
+          value={recipeInstructions}
+          onChangeText={setRecipeInstructions}
+        />
+  
+      </View>
+       
+
+      <Pressable onPress={saveRecipe} style={styles.button}>
+          <Text style={styles.buttonText}>Save Recipe</Text>
+        </Pressable>
+
+        
+        <Pressable onPress={clearAllRecipes} style={styles.button}>
+          <Text >Clear All Recipes</Text>
+        </Pressable>
+
+        {recipeImage && <Image source={{ uri: recipeImage.localUri }} style={{ width: 200, height: 200 }} />}
+
+
         {recipes.map((recipe, index) => (
-          <View key={index}>
-            {recipe.recipeImage && (
-              <Image
-                source={{ uri: recipe.recipeImage }}
-                style={{ width: 200, height: 200, marginBottom: 10 }}
-              />
-            )}
-            <Text>{recipe.recipeText}</Text>
+          <View key={index} >
+            <Text>{recipe.recipeName}</Text>
+            <Text>{recipe.recipeDetails}</Text>
+            <Text>{recipe.recipeIngredients}</Text>
+            <Text>{recipe.recipeInstructions}</Text>
           </View>
         ))}
       </ScrollView>

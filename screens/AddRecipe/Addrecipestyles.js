@@ -13,16 +13,33 @@ export default StyleSheet.create({
   },
 
   button: {
-    marginBottom: 20,
+    fontSize: 20, 
+    marginLeft: 80,
+    marginRight: 80, 
+    marginTop: 30,
+    marginBottom: 50,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20, 
+    alignItems: 'center', 
+    backgroundColor: '#FFAA00', 
+    
   },
- 
-  
 
   text: { //
     fontSize: 22, 
-    marginLeft: 40,
+    marginTop: 40,
+    marginLeft: 65,
    
   }, 
+
+  input1: {
+
+    marginTop: 40, 
+    marginBottom: 40,
+
+  },
+
 
   input: { //
     height: 40,
@@ -31,6 +48,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
+    marginLeft: 60,
     paddingHorizontal: 10, 
     
   },
