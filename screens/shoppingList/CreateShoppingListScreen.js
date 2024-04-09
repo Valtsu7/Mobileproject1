@@ -48,10 +48,9 @@ const CreateShoppingListScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Text>Create a New Shopping List</Text>
       <TextInput
-        style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
         onChangeText={text => setShoppingListName(text)}
         value={shoppingListName}
         placeholder="Enter shopping list name"
@@ -60,7 +59,6 @@ const CreateShoppingListScreen = () => {
         {items.map((item, index) => (
           <TextInput
             key={index}
-            style={{ height: 40, width: 200, borderColor: 'gray', borderBottomWidth: 1, marginBottom: 10 }}
             onChangeText={text => updateItem(index, text)}
             value={item}
             placeholder={`Item ${index + 1}`}

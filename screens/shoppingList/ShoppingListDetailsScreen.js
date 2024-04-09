@@ -63,12 +63,12 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View>
       <Text style={style.text}>{shoppingList.name}</Text>
       {shoppingListDetails.map((item, index) => (
         <Text key={index}>{item}</Text>
       ))}
-      <View style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View>
         <Button title="Edit" onPress={handleEdit} />
         <Button title="Remove" onPress={() => Alert.alert('Confirmation', 'Are you sure you want to remove this shopping list?', [{text: 'Cancel', style: 'cancel'}, {text: 'Remove', onPress: handleRemove}])} />
         <Button title="Refresh" onPress={handleRefresh} disabled={refreshing} />

@@ -74,16 +74,14 @@ const EditShoppingListScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View>
       <Text style={style.text}>Edit Shopping List</Text>
       <TextInput
-        style={{ marginBottom: 10, padding: 10, borderWidth: 1, borderColor: 'gray' }}
         value={editedName}
         onChangeText={setEditedName}
         placeholder="Shopping List Name"
       />
       <TextInput
-        style={{ marginBottom: 10, padding: 10, borderWidth: 1, borderColor: 'gray', height: 200 }}
         value={editedItems}
         onChangeText={setEditedItems}
         placeholder="Enter items (one per line)"

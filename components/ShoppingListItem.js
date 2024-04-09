@@ -6,7 +6,7 @@ import style from '../style/style';
 
 const ShoppingListItem = ({ item, onRemove }) => {
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+    <View>
       <Text>{item}</Text>
       <TouchableOpacity onPress={onRemove}>
         <Text>Remove</Text>
