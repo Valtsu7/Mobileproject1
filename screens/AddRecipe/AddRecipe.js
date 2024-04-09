@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, Image, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from '../style/style';
+import styles from '../../style/style';
 
 const AddRecipe = () => {
   const [recipeImage, setRecipeImage] = useState(null);

@@ -6,7 +6,7 @@ import Home from './screens/Home';
 import Login from './screens/Login';
 import Profile from './screens/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AddRecipe from './screens/AddRecipe';
+import AddRecipe from './screens/AddRecipe/AddRecipe';
 import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
 import CreateShoppingListScreen from './screens/shoppingList/CreateShoppingListScreen';
 import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingListsScreen';
