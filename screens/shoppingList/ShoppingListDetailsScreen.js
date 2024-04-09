@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import style from '../../style/style';
 
 const ShoppingListDetailsScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
@@ -38,7 +39,7 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   // Function to handle edit button press
   const handleEdit = () => {
     // Navigate to the edit screen passing the shopping list as a parameter
-    navigation.navigate('EditShoppingList', { shoppingList });
+    navigation.navigate('Edit list', { shoppingList });
   };
 
   // Function to handle remove button press
@@ -63,7 +64,7 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>{shoppingList.name}</Text>
+      <Text style={style.text}>{shoppingList.name}</Text>
       {shoppingListDetails.map((item, index) => (
         <Text key={index}>{item}</Text>
       ))}

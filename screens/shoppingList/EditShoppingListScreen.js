@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import style from '../../style/style';
+
 
 const EditShoppingListScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
@@ -73,7 +75,7 @@ const EditShoppingListScreen = ({ route, navigation }) => {
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>Edit Shopping List</Text>
+      <Text style={style.text}>Edit Shopping List</Text>
       <TextInput
         style={{ marginBottom: 10, padding: 10, borderWidth: 1, borderColor: 'gray' }}
         value={editedName}

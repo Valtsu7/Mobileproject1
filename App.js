@@ -21,11 +21,11 @@ const Stack = createStackNavigator(); // Create a stack navigator
 const ShoppingStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ShoppingScreen" component={ShoppingScreen} />
-      <Stack.Screen name="CreateShoppingList" component={CreateShoppingListScreen} />
-      <Stack.Screen name="BrowseShoppingList" component={BrowseShoppingListsScreen} />
-      <Stack.Screen name="ShoppingListDetails" component={ShoppingListDetailsScreen} /> 
-      <Stack.Screen name="EditShoppingList" component={EditShoppingListScreen} /> 
+      <Stack.Screen name=" " component={ShoppingScreen} />
+      <Stack.Screen name="Create Shopping List" component={CreateShoppingListScreen} />
+      <Stack.Screen name="Saved lists" component={BrowseShoppingListsScreen} />
+      <Stack.Screen name="Selected list" component={ShoppingListDetailsScreen} /> 
+      <Stack.Screen name="Edit list" component={EditShoppingListScreen} /> 
     </Stack.Navigator>
   );
 };

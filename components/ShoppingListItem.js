@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import style from '../style/style';
+
 
 const ShoppingListItem = ({ item, onRemove }) => {
   return (

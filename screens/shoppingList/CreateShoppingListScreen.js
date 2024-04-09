@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import style from '../../style/style';
+
 
 const CreateShoppingListScreen = () => {
   const [shoppingListName, setShoppingListName] = useState('');
@@ -54,7 +56,7 @@ const CreateShoppingListScreen = () => {
         value={shoppingListName}
         placeholder="Enter shopping list name"
       />
-      <ScrollView style={{ maxHeight: 200 }}>
+      <ScrollView style={style.scrollView}>
         {items.map((item, index) => (
           <TextInput
             key={index}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import style from '../../style/style';
 
 const BrowseShoppingListsScreen = ({ navigation }) => {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -34,7 +35,7 @@ const BrowseShoppingListsScreen = ({ navigation }) => {
       <FlatList
         data={shoppingLists}
         renderItem={({ item }) => (
-          <Text onPress={() => navigation.navigate('ShoppingListDetails', { shoppingList: item })}>
+          <Text onPress={() => navigation.navigate('Selected list', { shoppingList: item })}>
             {item.name}
           </Text>
         )}
