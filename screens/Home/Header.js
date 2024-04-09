@@ -1,21 +1,21 @@
 import React from 'react';
 import { Text, View, TextInput, Image } from 'react-native';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
-import styles from '../style/style';
+import styles from '../../style/style';
 
 export default function Header() {
   return (
     <View style={styles.header}>
       
       <Image
-              source={require('../assets/food2.jpg')}
+              source={require('../../assets/food2.jpg')}
               style={styles.foodImage}
             />
 
       <View style={styles.logoContainer}>
         {/* Logo */}
         <Image
-          source={require('../assets/flavorlogo2.png')}
+          source={require('../../assets/flavorlogo2.png')}
           style={styles.logo}
         />
       </View>
