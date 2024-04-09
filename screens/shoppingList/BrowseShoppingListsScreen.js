@@ -30,8 +30,8 @@ const BrowseShoppingListsScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <Text>Shopping Lists</Text>
+    <View style={style.shoppingListContainer}>
+      <Text style={style.title}>Shopping Lists</Text>
       <FlatList
         data={shoppingLists}
         renderItem={({ item }) => (
@@ -41,7 +41,7 @@ const BrowseShoppingListsScreen = ({ navigation }) => {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
-      <Button title="Refresh" onPress={handleRefresh} />
+      <Button style={style.button} title="Refresh" onPress={handleRefresh} />
     </View>
   );
 };

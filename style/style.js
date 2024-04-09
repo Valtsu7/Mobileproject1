@@ -4,13 +4,22 @@ export default StyleSheet.create({
  
   container: {
     flex: 1,
-    
+  },
+
+  shoppingListContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3
   },
   scrollView: {
-    backgroundColor: '#fff',
     marginHorizontal: 0,
+    maxHeight: 200,
   },
- 
+
+  button: {
+    marginBottom: 20,
+  },
  
   header: {
     flexDirection: 'row',
@@ -92,6 +101,42 @@ export default StyleSheet.create({
     marginTop: 30, 
    
   }, 
+  title: {
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
 
-
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    textAlign: 'center',
+    marginHorizontal: 70,
+  },
+  input: {
+    height: 40,
+    width: 250,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    paddingHorizontal: 10, 
+    
+  },
+  inputItem: {
+    height: 40,
+    width: 250,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 10,
+    paddingHorizontal: 10, 
+  }
+  
 });

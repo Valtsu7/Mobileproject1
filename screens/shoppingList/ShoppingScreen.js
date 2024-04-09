@@ -23,8 +23,8 @@ const ShoppingScreen = () => {
           setModalVisible(false);
         }}
       >
-        <View>
-          <View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
             <Text style={style.text}>Do you want to create a new or browse old shopping lists?</Text>
             <Button title="Create New" onPress={() => {
               navigation.navigate('Create Shopping List');
