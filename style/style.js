@@ -10,7 +10,8 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3
+    borderWidth: 1,
+    backgroundColor: '#ECF7D9'
   },
   scrollView: {
     marginHorizontal: 0,
@@ -104,7 +105,9 @@ export default StyleSheet.create({
   title: {
     fontSize: 20,
     marginBottom: 10,
+    
   },
+
   modalContainer: {
     flex: 1,
     justifyContent: 'center',

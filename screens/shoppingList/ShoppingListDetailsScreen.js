@@ -63,10 +63,10 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View>
-      <Text style={style.text}>{shoppingList.name}</Text>
+    <View style={style.shoppingListContainer} >
+      <Text style={style.title}>{shoppingList.name}</Text>
       {shoppingListDetails.map((item, index) => (
-        <Text key={index}>{item}</Text>
+        <Text  key={index}>{item}</Text>
       ))}
       <View>
         <Button title="Edit" onPress={handleEdit} />
