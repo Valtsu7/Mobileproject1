@@ -97,12 +97,31 @@ export default StyleSheet.create({
     textAlign: 'center',
   }, 
 
+  recipeContainer: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    margin: 5,
+    marginLeft: 20, 
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+
   image: {
   
-     width: 150, 
-     height: 250, 
-     marginLeft: 30, 
+     width: 250, 
+     height: 350, 
+     marginLeft: 0, 
+     borderRadius: 20, 
   },
  
+  recipeName: {
+    position: "absolute" ,
+    top: 200, 
+    left: 100, 
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 30, 
+  },
   
 });
