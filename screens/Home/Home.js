@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, Image, ScrollView, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './Homestyles';
 import Header from './Header';
@@ -23,6 +23,13 @@ const Home = ({ navigation, route }) => {
     fetchRecipes();
   }, []);
 
+  const renderItem = ({ item }) => (
+    <View style={styles.recipeContainer}>
+      {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
+      <Text style={styles.recipeName}>{item.recipeName}</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -31,19 +38,19 @@ const Home = ({ navigation, route }) => {
           Welcome to FlavorFriends!
         </Text>
         <Text style={styles.text1}>
-          Here are your saved recipes:
+          Just added recipes: 
         </Text>
-        
-        {/* Näytetään tallennetut reseptit */}
-        {recipes.map((recipe, index) => (
-          <View key={index}>
-            {recipe.recipeImage && (
-              <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />
-            )}
-            <Text>{recipe.recipeName}</Text>
-            {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />}
-          </View>
-        ))}
+
+        {/* FlatList reseptien esittämiseen */}
+        <FlatList
+          data={recipes}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+ 
+         
       </ScrollView>
     </SafeAreaView>
   );

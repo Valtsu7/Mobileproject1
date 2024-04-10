@@ -47,7 +47,7 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
-    
+    backgroundColor: '#FFAA00', 
     
   },
 
@@ -58,9 +58,18 @@ export default StyleSheet.create({
    
   }, 
 
+  text1: {
+    fontSize: 18, 
+    marginLeft: 35, 
+    marginRight: 60,
+    marginBottom: 15,
+    marginTop: 15,  
+
+  }, 
+
   input1: {
 
-    marginTop: 40, 
+    marginTop: 10, 
     marginBottom: 40,
 
   },
@@ -68,12 +77,12 @@ export default StyleSheet.create({
 
   input: { //
     height: 40,
-    width: 250,
+    width: 300,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
-    marginLeft: 60,
+    marginLeft: 35,
     paddingHorizontal: 10, 
     
   },

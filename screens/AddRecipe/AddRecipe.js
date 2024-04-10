@@ -93,9 +93,11 @@ const AddRecipe = () => {
            </View>
         </Pressable>
 
-       
+        
 
         <View style={styles.input1}>
+
+          <Text style={styles.text1}>What is the name of this recipe?</Text>
           <TextInput
             style={styles.input}
             placeholder="Recipe Name"
@@ -103,13 +105,15 @@ const AddRecipe = () => {
             onChangeText={setRecipeName}
           />
 
+          <Text style={styles.text1}>You can write short introduction about the recipe if you like:</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, { height: 100 }]}
             placeholder="Recipe Details"
             value={recipeDetails}
             onChangeText={setRecipeDetails}
           />
 
+          <Text style={styles.text1}>Here you can write down the needed ingredients:</Text>
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Ingredients"
@@ -117,7 +121,8 @@ const AddRecipe = () => {
             value={recipeIngredients}
             onChangeText={setRecipeIngredients}
           />
-
+       
+       <Text style={styles.text1}>Here you can write down the instructions:</Text>
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Instructions"

@@ -91,10 +91,18 @@ export default StyleSheet.create({
   text1: { //
     fontSize: 15, 
     fontWeight: 'bold',
-    marginLeft: 60, 
+    marginLeft: -20, 
     marginTop: 30, 
-   
+    marginBottom: 20, 
+    textAlign: 'center',
   }, 
+
+  image: {
+  
+     width: 150, 
+     height: 250, 
+     marginLeft: 30, 
+  },
  
   
 });
