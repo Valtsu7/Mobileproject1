@@ -17,12 +17,37 @@ export default StyleSheet.create({
     marginLeft: 80,
     marginRight: 80, 
     marginTop: 30,
-    marginBottom: 50,
+    marginBottom: 20,
     borderWidth: 1,
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
     backgroundColor: '#FFAA00', 
+    
+  },
+
+  button1: {
+    fontSize: 20, 
+    marginLeft: 80,
+    marginRight: 80, 
+    marginTop: 0,
+    marginBottom: 50,
+    alignItems: 'center', 
+    
+  },
+
+
+  button2: {
+    fontSize: 20, 
+    marginLeft: 80,
+    marginRight: 80, 
+    marginTop: 30,
+    marginBottom: 20,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20, 
+    alignItems: 'center', 
+    
     
   },
 
@@ -51,6 +76,14 @@ export default StyleSheet.create({
     marginLeft: 60,
     paddingHorizontal: 10, 
     
+  },
+
+  plus: {
+
+    position: "absolute", 
+    top: -10, 
+    left: -60, 
+
   },
  
   

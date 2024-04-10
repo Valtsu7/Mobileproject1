@@ -41,7 +41,7 @@ const Home = ({ navigation, route }) => {
               <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />
             )}
             <Text>{recipe.recipeName}</Text>
-           
+            {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />}
           </View>
         ))}
       </ScrollView>
