@@ -1,45 +1,55 @@
 // screens/shoppingList/ShoppingScreen.js
-import React, { useState } from 'react';
-import { View, Text, Button, Modal, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import CreateShoppingListScreen from './CreateShoppingListScreen';
-import BrowseShoppingListsScreen from './BrowseShoppingListsScreen';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from '../../style/style';
 
-const Stack = createStackNavigator();
+const ShoppingScreen = ({ navigation }) => {
+  const [shoppingLists, setShoppingLists] = useState([]);
 
-const ShoppingScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
+  // Function to fetch shopping lists from AsyncStorage
+  const fetchShoppingLists = async () => {
+    try {
+      const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
+      if (savedShoppingLists) {
+        setShoppingLists(JSON.parse(savedShoppingLists));
+      }
+    } catch (error) {
+      console.error('Error fetching shopping lists:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchShoppingLists();
+  }, []); // Fetch shopping lists when component mounts
+
+  // Function to handle the press of the "Create new shopping list" button
+  const handleCreateNewShoppingList = () => {
+    navigation.navigate('Create Shopping List');
+  };
+
+  // Function to handle the navigation to the details screen for a shopping list
+  const handleShoppingListPress = (shoppingList) => {
+    navigation.navigate('Selected list', { shoppingList });
+  };
 
   return (
-    <View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-            <Text style={style.text}>Do you want to create a new or browse old shopping lists?</Text>
-            <Button title="Create New" onPress={() => {
-              navigation.navigate('Create Shopping List');
-              setModalVisible(false);
-            }} />
-            <Button title="Browse Shopping Lists" onPress={() => {
-              navigation.navigate('Saved lists');
-              setModalVisible(false);
-            }} />
-          </View>
-        </View>
-      </Modal>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text style={style.text}>Let's make shopping easier!</Text>
+    <View style={style.shoppingListContainer}>
+      <TouchableOpacity onPress={handleCreateNewShoppingList}>
+        <Text style={style.text}>Create new shopping list</Text>
       </TouchableOpacity>
+
+      {/* Show existing shopping lists */}
+      <Text style={style.title}>Previously Made Shopping Lists</Text>
+      <FlatList
+        data={shoppingLists}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handleShoppingListPress(item)}>
+            <Text>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };

@@ -4,7 +4,6 @@ import { View, Text, TextInput, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from '../../style/style';
 
-
 const EditShoppingListScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
   const [editedName, setEditedName] = useState(shoppingList.name);

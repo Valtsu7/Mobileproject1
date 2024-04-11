@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import style from '../../style/style';
+import style from './ShoppingListStyles';
+
 
 const ShoppingListDetailsScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
