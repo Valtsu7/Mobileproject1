@@ -32,10 +32,10 @@ export default StyleSheet.create({
   },
 
   logo2: {
-    width: 60, // Muuta kuvan leveys sopivaksi
-    height: 60, // Muuta kuvan korkeus sopivaksi
+    width: 60, 
+    height: 60, 
     position: 'absolute',
-    left: 300
+    left: 300,
   },
 
   searchContainer: {
