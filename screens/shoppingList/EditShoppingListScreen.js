@@ -1,26 +1,93 @@
 // screens/shoppingList/EditShoppingListScreen.js
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import style from '../../style/style';
 
-const EditShoppingListScreen = () => {
-  const [editedItem, setEditedItem] = useState('');
+const EditShoppingListScreen = ({ route, navigation }) => {
+  const { shoppingList } = route.params;
+  const [editedName, setEditedName] = useState(shoppingList.name);
+  const [editedItems, setEditedItems] = useState(shoppingList.items.join('\n'));
 
-  const saveItem = () => {
-    // Add logic to save edited item
-    console.log('Edited item:', editedItem);
-    // Reset editedItem state
-    setEditedItem('');
+  console.log('editedName:', editedName);
+  console.log('editedItems:', editedItems);
+
+  const handleSaveChanges = async () => {
+    try {
+      // Split the edited items string into an array
+      const editedItemsArray = editedItems.split('\n').filter(item => item.trim() !== '');
+      // Update the shopping list with edited details
+      const updatedShoppingList = {
+        ...shoppingList,
+        name: editedName,
+        items: editedItemsArray,
+      };
+      // Save the updated shopping list in AsyncStorage
+      await updateShoppingList(updatedShoppingList);
+      // Navigate back to the previous screen
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      Alert.alert('Error', 'Failed to save changes.');
+    }
+  };
+
+  const handleRemoveList = async () => {
+    try {
+      // Retrieve the existing shopping lists from AsyncStorage
+      const existingShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
+      let updatedShoppingLists = [];
+      if (existingShoppingLists) {
+        updatedShoppingLists = JSON.parse(existingShoppingLists).filter(list => list.name !== shoppingList.name);
+      }
+      // Save the updated shopping lists back to AsyncStorage
+      await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedShoppingLists));
+      // Navigate back to the previous screen
+      navigation.goBack();
+    } catch (error) {
+      console.error('Error removing shopping list:', error);
+      Alert.alert('Error', 'Failed to remove shopping list.');
+    }
+  };
+
+  const updateShoppingList = async (updatedList) => {
+    try {
+      // Retrieve the existing shopping lists from AsyncStorage
+      const existingShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
+      let updatedShoppingLists = [];
+      if (existingShoppingLists) {
+        updatedShoppingLists = JSON.parse(existingShoppingLists).map(list => {
+          // If the list name matches the edited list, replace it with the updated list
+          if (list.name === shoppingList.name) {
+            return updatedList;
+          }
+          return list;
+        });
+      }
+      // Save the updated shopping lists back to AsyncStorage
+      await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedShoppingLists));
+    } catch (error) {
+      console.error('Error updating shopping list:', error);
+      throw error; // Propagate error for handling
+    }
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
+      <Text style={style.text}>Edit Shopping List</Text>
       <TextInput
-        style={{ height: 40, width: 200, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
-        onChangeText={text => setEditedItem(text)}
-        value={editedItem}
-        placeholder="Edit item"
+        value={editedName}
+        onChangeText={setEditedName}
+        placeholder="Shopping List Name"
       />
-      <Button title="Save Item" onPress={saveItem} />
+      <TextInput
+        value={editedItems}
+        onChangeText={setEditedItems}
+        placeholder="Enter items (one per line)"
+        multiline
+      />
+      <Button title="Save Changes" onPress={handleSaveChanges} />
+      <Button title="Remove List" onPress={handleRemoveList} color="red" />
     </View>
   );
 };

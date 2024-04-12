@@ -4,6 +4,7 @@ export default StyleSheet.create({
  
   container: {
     flex: 1,
+    backgroundColor: '#ECF7D9',
   },
 
   shoppingListContainer: {
@@ -15,7 +16,8 @@ export default StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 0,
-    maxHeight: 200,
+    maxHeight: 320,
+    
   },
 
   button: {
@@ -42,10 +44,10 @@ export default StyleSheet.create({
   },
 
   logo2: {
-    width: 60, 
-    height: 60, 
+    width: 60, // Muuta kuvan leveys sopivaksi
+    height: 60, // Muuta kuvan korkeus sopivaksi
     position: 'absolute',
-    left: 300,
+    left: 300
   },
 
   searchContainer: {
@@ -91,8 +93,8 @@ export default StyleSheet.create({
 
   text: {
     fontSize: 22, 
-    marginLeft: 40,
-   
+    padding: 20,
+    textAlign: 'center'
   }, 
 
   text1: {
@@ -103,33 +105,22 @@ export default StyleSheet.create({
    
   }, 
   title: {
-    fontSize: 20,
-    marginBottom: 10,
-    
-  },
-
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-
-    padding: 20,
-    borderRadius: 10,
-  },
-  modalText: {
+    fontSize: 15,
     textAlign: 'center',
-    marginHorizontal: 70,
+    margin: 11
   },
+
   input: {
     height: 40,
     width: 250,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 10,
-    paddingHorizontal: 10, 
+    marginTop: 20,
+    
+    marginLeft: 80,
+    padding: 10
+    
     
   },
   inputItem: {
@@ -140,6 +131,18 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     paddingHorizontal: 10, 
+  },
+  editList: {
+    margin: 20,
+    borderWidth: 1,
+    height: 400,
+    fontSize: 16,
+    width: 350,
+    padding: 20,
+    paddingTop: 20,
+    borderRadius: 10,
+    textAlign: 'center',
+    backgroundColor: '#AFF7AE'
   }
   
 });
