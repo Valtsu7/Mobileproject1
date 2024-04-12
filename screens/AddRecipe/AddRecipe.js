@@ -5,6 +5,10 @@ import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 import { AntDesign } from '@expo/vector-icons';
 
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebase/Config';
+
+
 const AddRecipe = () => {
   const [recipeName, setRecipeName] = useState('');
   const [recipeDetails, setRecipeDetails] = useState('');
@@ -32,18 +36,17 @@ const AddRecipe = () => {
   const saveRecipe = async () => {
     try {
       const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage };
-      const updatedRecipes = [...recipes, newRecipe];
-
-      await AsyncStorage.setItem('recipes', JSON.stringify(updatedRecipes));
-
+      
+      // Lisää uusi resepti Firestore-tietokantaan
+      await addDoc(collection(db, 'recipes'), newRecipe);
+  
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-
+  
       setRecipeName('');
       setRecipeDetails('');
       setRecipeIngredients('');
       setRecipeInstructions('');
       setRecipeImage(null);
-      setRecipes(updatedRecipes);
     } catch (error) {
       console.error('Error saving recipe: ', error);
     }

@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack"
 import Home from './screens/Home/Home';
-import Login from './screens/Login';
 import Profile from './screens/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './screens/AddRecipe/AddRecipe';
@@ -13,6 +12,7 @@ import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingList
 import ShoppingListDetailsScreen from './screens/shoppingList/ShoppingListDetailsScreen';
 import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScreen';
 
+import { db } from './firebase/Config';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
@@ -67,9 +67,9 @@ export default function App() {
         })}
       >
         <Tab.Screen name='Home' component={Home}  />
-        <Tab.Screen name='Add Recipe' component={AddRecipe}/>
-        <Tab.Screen name='Shopping List' component={ShoppingStack}/>
-        <Tab.Screen name='Profile' component={Profile}/>
+        <Tab.Screen name='Add Recipe' component={AddRecipe} />
+        <Tab.Screen name='Shopping List' component={ShoppingStack} />
+        <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

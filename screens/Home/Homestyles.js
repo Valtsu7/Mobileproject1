@@ -124,4 +124,15 @@ export default StyleSheet.create({
     fontSize: 30, 
   },
   
+ categories: {
+
+  marginLeft: 20, 
+  marginRight: 20, 
+  marginBottom: 30, 
+  marginTop: 30, 
+
+
+ }, 
+
+
 });

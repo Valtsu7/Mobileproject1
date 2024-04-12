@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, ScrollView, SafeAreaView, FlatList } from 'react-native';
+import { Text, View, Image, ScrollView, SafeAreaView, FlatList, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './Homestyles';
 import Header from './Header';
@@ -30,6 +30,28 @@ const Home = ({ navigation, route }) => {
     </View>
   );
 
+  const renderCategoryItem = ({ item, index }) => (
+    <Pressable style={styles.categories}>
+    
+      <Text>{item}</Text>
+    </Pressable>
+  );
+
+  const categories = ["Meat", "Vegan", "Fish", "Breads", "Cakes", "Burgers", "Pizza"];
+
+  // Oletetaan, että kategoriaan liittyvät kuvat ovat samassa järjestyksessä kuin kategoriat
+  /* const categoryImages = [
+    require('./images/meat.jpg'),
+    require('./images/vegan.jpg'),
+    require('./images/fish.jpg'),
+    require('./images/breads.jpg'),
+    require('./images/cakes.jpg'),
+    require('./images/burgers.jpg'),
+    require('./images/pizza.jpg'),
+
+     <Image source={categoryImages[index]} style={styles.categoryImage} />
+  ]; */
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -37,11 +59,23 @@ const Home = ({ navigation, route }) => {
         <Text style={styles.text}>
           Welcome to FlavorFriends!
         </Text>
+
         <Text style={styles.text1}>
-          Just added recipes: 
+          Here are some categories for you!
         </Text>
 
-        {/* FlatList reseptien esittämiseen */}
+        <FlatList
+          data={categories}
+          renderItem={renderCategoryItem}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
+        <Text style={styles.text1}>
+          Just added recipes:
+        </Text>
+
         <FlatList
           data={recipes}
           renderItem={renderItem}
@@ -49,8 +83,7 @@ const Home = ({ navigation, route }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         />
- 
-         
+
       </ScrollView>
     </SafeAreaView>
   );
