@@ -6,6 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "permissions": ["CAMERA", "CAMERA_ROLL"],
+    "infoPlist": {
+      "NSCameraUsageDescription": "This app requires access to the camera for taking profile pictures.",
+      "NSPhotoLibraryUsageDescription": "This app requires access to your photo library to select profile pictures."
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

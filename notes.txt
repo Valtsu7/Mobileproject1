@@ -1,0 +1,2 @@
+Logo1 color in HEX: #AFF7AE
+Logo2 color in HEX: #ECF7D9

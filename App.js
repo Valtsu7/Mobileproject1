@@ -1,13 +1,35 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from './screens/Home';
+import { createStackNavigator } from "@react-navigation/stack"
+import Home from './screens/Home/Home';
 import Login from './screens/Login';
-import ShoppingList from './screens/Shoppinglist';
-import Profile from './screens/Profile';
+import Profile from './screens/profile/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AddRecipe from './screens/AddRecipe';
+import AddRecipe from './screens/AddRecipe/AddRecipe';
+import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
+import CreateShoppingListScreen from './screens/shoppingList/CreateShoppingListScreen';
+import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingListsScreen';
+import ShoppingListDetailsScreen from './screens/shoppingList/ShoppingListDetailsScreen';
+import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScreen';
+
+import { db } from './firebase/Config';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator(); // Create a stack navigator
+
+// Function to render shopping screen
+const ShoppingStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name=" " component={ShoppingScreen} />
+      <Stack.Screen name="Create Shopping List" component={CreateShoppingListScreen} />
+      <Stack.Screen name="Saved lists" component={BrowseShoppingListsScreen} />
+      <Stack.Screen name="Selected list" component={ShoppingListDetailsScreen} /> 
+      <Stack.Screen name="Edit list" component={EditShoppingListScreen} /> 
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
   return (
@@ -46,9 +68,9 @@ export default function App() {
         })}
       >
         <Tab.Screen name='Home' component={Home}  />
-        <Tab.Screen name='Add Recipe' component={AddRecipe}/>
-        <Tab.Screen name='Shopping List' component={ShoppingList}/>
-        <Tab.Screen name='Profile' component={Profile}/>
+        <Tab.Screen name='Add Recipe' component={AddRecipe} />
+        <Tab.Screen name='Shopping List' component={ShoppingStack} />
+        <Tab.Screen name='Profile' component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

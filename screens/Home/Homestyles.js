@@ -2,53 +2,47 @@ import { StyleSheet, StatusBar } from 'react-native';
 
 export default StyleSheet.create({
  
-  container: {
+  container: {  //
     flex: 1,
   },
 
-  shoppingListContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    backgroundColor: '#ECF7D9'
-  },
-  scrollView: {
+  
+  scrollView: {  //
     marginHorizontal: 0,
-    maxHeight: 200,
+    
   },
 
   button: {
     marginBottom: 20,
   },
  
-  header: {
+  header: {  //
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    marginBottom: 150, 
+    marginBottom: 0, 
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
   },
-  logoContainer: {
+  logoContainer: { //
     
   },
-  logo: {
+  logo: {  //
     width: 60, 
     height: 60, 
   },
 
   logo2: {
-    width: 60, 
-    height: 60, 
+    width: 60, // Muuta kuvan leveys sopivaksi
+    height: 60, // Muuta kuvan korkeus sopivaksi
     position: 'absolute',
-    left: 300,
+    left: 300
   },
 
-  searchContainer: {
+  searchContainer: {  //
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
@@ -60,16 +54,16 @@ export default StyleSheet.create({
     borderRadius: 20,
     height: 36,
   },
-  searchInput: {
+  searchInput: {  //
     flex: 1,
     fontSize: 16,
     color: '#333',
     paddingLeft: 10,
   },
-  profileContainer: {
+  profileContainer: {  //
     position: 'relative', 
   },
-  profileBackground: {
+  profileBackground: {  //
     position: 'absolute', 
     backgroundColor: 'white',
     width: 40, 
@@ -81,65 +75,64 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  foodImage: {
+  foodImage: {  //
     width: '120%', 
     height: 200, 
-    position: 'absolute', 
-    top: 10, 
-    left: 0,
+    
   },
 
-  text: {
+  text: { //
     fontSize: 22, 
     marginLeft: 40,
+    
    
   }, 
 
-  text1: {
+  text1: { //
     fontSize: 15, 
     fontWeight: 'bold',
-    marginLeft: 60, 
+    marginLeft: -20, 
     marginTop: 30, 
-   
+    marginBottom: 20, 
+    textAlign: 'center',
   }, 
-  title: {
-    fontSize: 20,
-    marginBottom: 10,
-    
-  },
 
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  recipeContainer: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    margin: 5,
+    marginLeft: 20, 
+    borderRadius: 10,
     alignItems: 'center',
   },
-  modalContent: {
 
-    padding: 20,
-    borderRadius: 10,
-  },
-  modalText: {
-    textAlign: 'center',
-    marginHorizontal: 70,
-  },
-  input: {
-    height: 40,
-    width: 250,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 10,
-    paddingHorizontal: 10, 
-    
-  },
-  inputItem: {
-    height: 40,
-    width: 250,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 10,
-    paddingHorizontal: 10, 
-  }
+  image: {
   
+     width: 250, 
+     height: 350, 
+     marginLeft: 0, 
+     borderRadius: 20, 
+  },
+ 
+  recipeName: {
+    position: "absolute" ,
+    top: 250, 
+    left: 20, 
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 30, 
+  },
+  
+ categories: {
+
+  marginLeft: 20, 
+  marginRight: 20, 
+  marginBottom: 30, 
+  marginTop: 30, 
+
+
+ }, 
+
+
 });
