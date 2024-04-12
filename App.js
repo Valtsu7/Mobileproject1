@@ -2,9 +2,9 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack"
-import Home from './screens/Home';
+import Home from './screens/Home/Home';
 import Login from './screens/Login';
-import Profile from './screens/Profile';
+import Profile from './screens/profile/Profile';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './screens/AddRecipe/AddRecipe';
 import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
