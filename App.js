@@ -39,7 +39,7 @@ const ShoppingStack = () => {
 const MyDrawer = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Login/register" component={Login} />
       <Drawer.Screen name="Register" component={Register} />
     </Drawer.Navigator>
   );
