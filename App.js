@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Home from './screens/Home/Home';
 import Login from './screens/Login';
 import Profile from './screens/profile/Profile';
+import Register from './screens/Register';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './screens/AddRecipe/AddRecipe';
 import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
@@ -12,11 +13,15 @@ import CreateShoppingListScreen from './screens/shoppingList/CreateShoppingListS
 import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingListsScreen';
 import ShoppingListDetailsScreen from './screens/shoppingList/ShoppingListDetailsScreen';
 import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScreen';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
 
 import { db } from './firebase/Config';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
+const Drawer = createDrawerNavigator();
+
 
 // Function to render shopping screen
 const ShoppingStack = () => {
@@ -30,6 +35,15 @@ const ShoppingStack = () => {
     </Stack.Navigator>
   );
 };
+
+const MyDrawer = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Register" component={Register} />
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -67,6 +81,9 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
+        <Tab.Screen name= 'Login' component={MyDrawer}
+          options={{tapBarStyle : {display: 'none'}}}
+        />
         <Tab.Screen name='Home' component={Home}  />
         <Tab.Screen name='Add Recipe' component={AddRecipe} />
         <Tab.Screen name='Shopping List' component={ShoppingStack} />
