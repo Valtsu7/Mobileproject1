@@ -1,13 +1,14 @@
+// ShoppingListDetailsScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CustomCheckbox from './CustomCheckBox'; // Import CustomCheckbox from its file
 import style from './ShoppingListStyles';
-
 
 const ShoppingListDetailsScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
   const [refreshing, setRefreshing] = useState(false);
-  const [shoppingListDetails, setShoppingListDetails] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
 
   // Function to fetch the latest shopping list details
   const fetchShoppingListDetails = async () => {
@@ -16,7 +17,7 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
       if (updatedShoppingList) {
         const parsedShoppingList = JSON.parse(updatedShoppingList).find(list => list.name === shoppingList.name);
         if (parsedShoppingList) {
-          setShoppingListDetails(parsedShoppingList.items);
+          setCheckedItems(Array(parsedShoppingList.items.length).fill(false)); // Initialize checked items array
         }
       }
     } catch (error) {
@@ -36,6 +37,13 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   useEffect(() => {
     fetchShoppingListDetails();
   }, []); // Fetch the initial shopping list details when the component mounts
+
+  // Function to handle checkbox press
+  const handleCheckboxPress = (index) => {
+    const updatedCheckedItems = [...checkedItems];
+    updatedCheckedItems[index] = !updatedCheckedItems[index];
+    setCheckedItems(updatedCheckedItems);
+  };
 
   // Function to handle edit button press
   const handleEdit = () => {
@@ -64,12 +72,15 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={style.shoppingListContainer} >
+    <View style={style.shoppingListContainer}>
       <Text style={style.title}>{shoppingList.name}</Text>
-      {shoppingListDetails.map((item, index) => (
-        <Text  key={index}>{item}</Text>
+      {shoppingList.items.map((item, index) => (
+        <View style={style.shoppingListItem} key={index}>
+          <CustomCheckbox checked={checkedItems[index]} onPress={() => handleCheckboxPress(index)} />
+          <Text style={style.item}>{item}</Text>
+        </View>
       ))}
-      <View>
+      <View style={style.buttonContainer}>
         <Button title="Edit" onPress={handleEdit} />
         <Button title="Remove" onPress={() => Alert.alert('Confirmation', 'Are you sure you want to remove this shopping list?', [{text: 'Cancel', style: 'cancel'}, {text: 'Remove', onPress: handleRemove}])} />
         <Button title="Refresh" onPress={handleRefresh} disabled={refreshing} />
@@ -79,4 +90,3 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
 };
 
 export default ShoppingListDetailsScreen;
-

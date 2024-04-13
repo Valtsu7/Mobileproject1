@@ -1,8 +1,8 @@
 // screens/shoppingList/ShoppingScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import style from '../../style/style';
+import style from './ShoppingListStyles';
 
 const ShoppingScreen = ({ navigation }) => {
   const [shoppingLists, setShoppingLists] = useState([]);
@@ -12,7 +12,7 @@ const ShoppingScreen = ({ navigation }) => {
     try {
       const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
       if (savedShoppingLists) {
-        setShoppingLists(JSON.parse(savedShoppingLists));
+        setShoppingLists(JSON.parse(savedShoppingLists).reverse()); // Reverse the order
       }
     } catch (error) {
       console.error('Error fetching shopping lists:', error);
@@ -28,6 +28,10 @@ const ShoppingScreen = ({ navigation }) => {
     navigation.navigate('Create Shopping List');
   };
 
+  const handleRefresh = () => {
+    fetchShoppingLists();
+  };
+
   // Function to handle the navigation to the details screen for a shopping list
   const handleShoppingListPress = (shoppingList) => {
     navigation.navigate('Selected list', { shoppingList });
@@ -36,20 +40,25 @@ const ShoppingScreen = ({ navigation }) => {
   return (
     <View style={style.shoppingListContainer}>
       <TouchableOpacity onPress={handleCreateNewShoppingList}>
-        <Text style={style.text}>Create new shopping list</Text>
+        <Text style={style.button}>Create new shopping list</Text>
       </TouchableOpacity>
 
       {/* Show existing shopping lists */}
-      <Text style={style.title}>Previously Made Shopping Lists</Text>
+      
+      <Text style={style.title}>Previously made shopping lists:</Text>
       <FlatList
-        data={shoppingLists}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleShoppingListPress(item)}>
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
+  data={shoppingLists}
+  renderItem={({ item }) => (
+    <TouchableOpacity onPress={() => handleShoppingListPress(item)}>
+      <View style={style.shoppingListItem}>
+        <Text style={style.listName}>{item.name}</Text>
+        <Text style={style.itemCount}>{item.items.length} items</Text>
+      </View>
+    </TouchableOpacity>
+  )}
+  keyExtractor={(item, index) => index.toString()}
+/>
+      <Button title="Refresh" onPress={handleRefresh} />
     </View>
   );
 };
