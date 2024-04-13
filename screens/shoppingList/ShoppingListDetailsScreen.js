@@ -1,9 +1,9 @@
 // ShoppingListDetailsScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import CustomCheckbox from './CustomCheckBox'; // Import CustomCheckbox from its file
 import style from './ShoppingListStyles';
+import CustomCheckbox from './CustomCheckBox';
 
 const ShoppingListDetailsScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
@@ -74,19 +74,27 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
   return (
     <View style={style.shoppingListContainer}>
       <Text style={style.title}>{shoppingList.name}</Text>
+      <ScrollView>
       {shoppingList.items.map((item, index) => (
-        <View style={style.shoppingListItem} key={index}>
-          <CustomCheckbox checked={checkedItems[index]} onPress={() => handleCheckboxPress(index)} />
-          <Text style={style.item}>{item}</Text>
-        </View>
+        <TouchableOpacity key={index} onPress={() => handleCheckboxPress(index)}>
+          <View style={style.itemContainer}>
+            <CustomCheckbox checked={checkedItems[index]} onPress={() => handleCheckboxPress(index)} />
+            <Text style={style.item}>{item}</Text>
+          </View>
+        </TouchableOpacity>
       ))}
+      </ScrollView>
       <View style={style.buttonContainer}>
         <Button title="Edit" onPress={handleEdit} />
         <Button title="Remove" onPress={() => Alert.alert('Confirmation', 'Are you sure you want to remove this shopping list?', [{text: 'Cancel', style: 'cancel'}, {text: 'Remove', onPress: handleRemove}])} />
         <Button title="Refresh" onPress={handleRefresh} disabled={refreshing} />
       </View>
+      
     </View>
   );
 };
 
+
+
 export default ShoppingListDetailsScreen;
+

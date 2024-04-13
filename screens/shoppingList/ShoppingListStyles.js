@@ -93,7 +93,7 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontSize: 22, 
+    fontSize: 18, 
     padding: 20,
     textAlign: 'center'
   }, 
@@ -109,13 +109,12 @@ export default StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     margin: 20,
-    borderWidth: 1,
+    borderWidth: 1.8,
     padding: 15,
-    minWidth: 200,
+    minWidth: 350,
     borderRadius: 10,
     backgroundColor: '#AFF7AE',
     fontSize: 22,
-    letterSpacing: '4'
   },
 
   input: {
@@ -144,7 +143,7 @@ export default StyleSheet.create({
   editList: {
     margin: 20,
     borderWidth: 1,
-    height: 400,
+    maxHeight: 200,
     fontSize: 16,
     width: 350,
     padding: 20,
@@ -181,13 +180,20 @@ export default StyleSheet.create({
   },
   
   item: {
-    borderWidth: 1.7,
-    borderColor: 'gray',
+    borderWidth: 1,
     padding: 10,
     minWidth: 200,
     minHeight: 20,
     margin: 10,
     fontStyle: 'italic',
-    fontSize: 17
-  }
+    fontSize: 17,
+    backgroundColor: '#AFF7AE'
+  },
+
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    marginRight: 30
+  },
 });

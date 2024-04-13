@@ -45,7 +45,7 @@ const ShoppingScreen = ({ navigation }) => {
 
       {/* Show existing shopping lists */}
       
-      <Text style={style.title}>Previously made shopping lists:</Text>
+      <Text style={style.text}>Previously made shopping lists:</Text>
       <FlatList
   data={shoppingLists}
   renderItem={({ item }) => (

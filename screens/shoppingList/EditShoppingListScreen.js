@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import style from '../../style/style';
+import style from './ShoppingListStyles';
 
 const EditShoppingListScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;
@@ -73,14 +73,16 @@ const EditShoppingListScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View>
-      <Text style={style.text}>Edit Shopping List</Text>
+    <View style={style.shoppingListContainer}>
+      <Text style={style.text}>Here you can edit your shopping list:</Text>
       <TextInput
+        style={style.title}
         value={editedName}
         onChangeText={setEditedName}
         placeholder="Shopping List Name"
       />
       <TextInput
+        style={style.editList}
         value={editedItems}
         onChangeText={setEditedItems}
         placeholder="Enter items (one per line)"
