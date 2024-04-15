@@ -17,7 +17,7 @@ import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScree
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import PastaScreen from './screens/Categories/Pasta';
 import SaladScreen from './screens/Categories/Salad';
-import EmptyScreen from './screens/Categories/Empty';
+import FishScreen from './screens/Categories/Fish';
 import { db } from './firebase/Config';
 import VegeScreen from './screens/Categories/Vegetarian';
 
@@ -35,6 +35,7 @@ const Categorystack = () => {
       <Stack1.Screen name="Pasta" component={PastaScreen} />
       <Stack1.Screen name="Vegetarian" component={VegeScreen} />
       <Stack1.Screen name="Salad" component={SaladScreen} />
+      <Stack1.Screen name="Fish" component={FishScreen} />
     </Stack1.Navigator>
   );
 };
