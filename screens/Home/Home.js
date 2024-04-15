@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, ScrollView, SafeAreaView, FlatList, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native'; // Lisätty navigointikirjasto
 import styles from './Homestyles';
 import Header from './Header';
 
@@ -23,6 +24,11 @@ const Home = ({ navigation, route }) => {
     fetchRecipes();
   }, []);
 
+  // Funktio navigointiin
+  const navigateToCategory = (categoryName) => {
+    navigation.navigate(categoryName);
+  };
+
   const renderItem = ({ item }) => (
     <View style={styles.recipeContainer}>
       {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
@@ -30,27 +36,29 @@ const Home = ({ navigation, route }) => {
     </View>
   );
 
+  const categories = ["Pasta", "Vegetarian", "Salads", "Fish", "Meat", "Burgers", "Pizza", "Grilled foods", "Soups", "Desserts", "Breds and Rolls", "Gluten-Free"];
+
+  const categoryImages = [
+    require('./images/pasta.jpg'),
+    require('./images/vegetarian.jpg'),
+    require('./images/salad.jpg'),
+    require('./images/fish.jpg'),
+    require('./images/steak.jpg'),
+    require('./images/burger.jpg'),
+    require('./images/pizza.jpg'),
+    require('./images/grilledfoods.jpg'),
+    require('./images/soup.jpg'),
+    require('./images/desserts.jpg'),
+    require('./images/bredsandrolls.jpg'),
+    require('./images/muffins.jpg'),
+  ];
+  
   const renderCategoryItem = ({ item, index }) => (
-    <Pressable style={styles.categories}>
-    
-      <Text>{item}</Text>
+    <Pressable style={styles.categories} onPress={() => navigateToCategory(item)}>
+      <Image source={categoryImages[index]} style={styles.categoryImage} />
+      <Text style={styles.text2}>{item}</Text>
     </Pressable>
   );
-
-  const categories = ["Meat", "Vegan", "Fish", "Breads", "Cakes", "Burgers", "Pizza"];
-
-  // Oletetaan, että kategoriaan liittyvät kuvat ovat samassa järjestyksessä kuin kategoriat
-  /* const categoryImages = [
-    require('./images/meat.jpg'),
-    require('./images/vegan.jpg'),
-    require('./images/fish.jpg'),
-    require('./images/breads.jpg'),
-    require('./images/cakes.jpg'),
-    require('./images/burgers.jpg'),
-    require('./images/pizza.jpg'),
-
-     <Image source={categoryImages[index]} style={styles.categoryImage} />
-  ]; */
 
   return (
     <SafeAreaView style={styles.container}>
