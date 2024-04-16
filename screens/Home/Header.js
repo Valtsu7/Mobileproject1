@@ -1,9 +1,16 @@
 import React from 'react';
-import { Text, View, TextInput, Image } from 'react-native';
+import { Text, View, TextInput, Image, Pressable } from 'react-native';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'; // Lisätty
 import styles from '../../style/style';
 
 export default function Header() {
+  const navigation = useNavigation(); // Lisätty
+
+  const onPressSearch = () => {
+    navigation.navigate('Search'); // Navigoidaan Search.js-sivulle
+  };
+
   return (
     <View style={styles.header}>
       
@@ -21,15 +28,11 @@ export default function Header() {
       </View>
       
       {/* Hakukenttä */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search..."
-          placeholderTextColor="#888"
-        />
+      <Pressable style={styles.searchContainer} onPress={onPressSearch}>
+       
         {/* Hakukuvake */}
         <MaterialIcons name="search" size={24} color="#888" />
-      </View>
+      </Pressable>
       
        {/* Profiilikuva */}
        <View style={styles.profileContainer}>
