@@ -5,6 +5,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        backgroundColor: '#ECF7D9'
       },
       recipeName: {
         fontSize: 24,
