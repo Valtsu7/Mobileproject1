@@ -20,6 +20,14 @@ import SaladScreen from './screens/Categories/Salad';
 import FishScreen from './screens/Categories/Fish';
 import { db } from './firebase/Config';
 import VegeScreen from './screens/Categories/Vegetarian';
+import MeatScreen from './screens/Categories/Meat';
+import BurgersScreen from './screens/Categories/Burgers';
+import PizzaScreen from './screens/Categories/Pizza';
+import GrilledfoodsScreen from './screens/Categories/Grilledfoods';
+import SoupsScreen from './screens/Categories/Soups';
+import DessertsScreen from './screens/Categories/Desserts';
+import BreadandrollsScreen from './screens/Categories/Breadsandrolls';
+import GlutenFreeScreen from './screens/Categories/GlutenFree';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
@@ -36,6 +44,14 @@ const Categorystack = () => {
       <Stack1.Screen name="Vegetarian" component={VegeScreen} />
       <Stack1.Screen name="Salad" component={SaladScreen} />
       <Stack1.Screen name="Fish" component={FishScreen} />
+      <Stack1.Screen name="Meat" component={MeatScreen} />
+      <Stack1.Screen name="Burgers" component={BurgersScreen} />
+      <Stack1.Screen name="Pizza" component={PizzaScreen} />
+      <Stack1.Screen name="Grilled foods" component={GrilledfoodsScreen} />
+      <Stack1.Screen name="Soups" component={SoupsScreen} />
+      <Stack1.Screen name="Desserts" component={DessertsScreen} />
+      <Stack1.Screen name="Breads and Rolls" component={BreadandrollsScreen} />
+      <Stack1.Screen name="Gluten-Free" component={GlutenFreeScreen} />
     </Stack1.Navigator>
   );
 };

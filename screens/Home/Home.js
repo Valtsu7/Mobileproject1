@@ -36,7 +36,7 @@ const Home = ({ navigation, route }) => {
     </View>
   );
 
-  const categories = ["Pasta", "Vegetarian", "Salad", "Fish", "Meat", "Burgers", "Pizza", "Grilled foods", "Soups", "Desserts", "Breds and Rolls", "Gluten-Free"];
+  const categories = ["Pasta", "Vegetarian", "Salad", "Fish", "Meat", "Burgers", "Pizza", "Grilled foods", "Soups", "Desserts", "Breads and Rolls", "Gluten-Free"];
 
   const categoryImages = [
     require('./images/pasta.jpg'),
