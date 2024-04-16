@@ -98,7 +98,7 @@ export default StyleSheet.create({
   }, 
 
   recipeContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#F97A50',
     padding: 10,
     margin: 5,
     marginLeft: 20, 
@@ -126,7 +126,7 @@ export default StyleSheet.create({
   
  categories: {
 
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#F97A50',
     padding: 10,
     margin: 5,
     marginLeft: 10, 

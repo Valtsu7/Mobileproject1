@@ -23,16 +23,23 @@ const Home = ({ navigation, route }) => {
     fetchRecipes();
   }, []);
 
-  // Funktio navigointiin
+  // Funktio navigointiin kategorianäkymään
   const navigateToCategory = (categoryName) => {
     navigation.navigate(categoryName);
   };
 
+  // Funktio navigointiin reseptinäkymään
+  const navigateToRecipe = (recipe) => {
+    navigation.navigate('Recipe', { recipe });
+  };
+
   const renderItem = ({ item }) => (
-    <View style={styles.recipeContainer}>
-      {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
-      <Text style={styles.recipeName}>{item.recipeName}</Text>
-    </View>
+    <Pressable style={styles.recipeContainer} onPress={() => navigateToRecipe(item)}>
+      <View>
+        {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
+        <Text style={styles.recipeName}>{item.recipeName}</Text>
+      </View>
+    </Pressable>
   );
 
   const categories = ["Pasta", "Vegetarian", "Salad", "Fish", "Meat", "Burgers", "Pizza", "Grilled foods", "Soups", "Desserts", "Breads and Rolls", "Gluten-Free"];
@@ -59,7 +66,6 @@ const Home = ({ navigation, route }) => {
     </Pressable>
   );
 
-  //
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -91,7 +97,7 @@ const Home = ({ navigation, route }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         />
-
+     
       </ScrollView>
     </SafeAreaView>
   );

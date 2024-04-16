@@ -113,6 +113,7 @@ const AddRecipe = () => {
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Details"
+            multiline
             value={recipeDetails}
             onChangeText={setRecipeDetails}
           />
