@@ -67,20 +67,12 @@ export default function Register({ navigation }) {
           </Pressable>
         </View>
         <Text style={styles.infoText}>
-          You are logged in. Go to your todos...
+          Go to your profile...
         </Text>
         <Pressable style={styles.buttonStyle}>
           <Button
-            title="Todos"
-            onPress={() => navigation.navigate('Todos')} />
-        </Pressable>
-        <Text style={styles.infoText}>
-          Or to your account...
-        </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="My account"
-            onPress={() => navigation.navigate('My Account')} />
+            title="Profile"
+            onPress={() => navigation.navigate('Profile')} />
         </Pressable>
       </View>
     )
