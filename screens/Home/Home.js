@@ -59,6 +59,7 @@ const Home = ({ navigation, route }) => {
     </Pressable>
   );
 
+  //
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
