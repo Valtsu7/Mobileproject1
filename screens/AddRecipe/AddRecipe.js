@@ -37,20 +37,21 @@ const AddRecipe = () => {
     try {
       const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage };
       
-      // Lisää uusi resepti Firestore-tietokantaan
-      await addDoc(collection(db, 'recipes'), newRecipe);
-  
-      Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-  
-      setRecipeName('');
-      setRecipeDetails('');
-      setRecipeIngredients('');
-      setRecipeInstructions('');
-      setRecipeImage(null);
-    } catch (error) {
-      console.error('Error saving recipe: ', error);
-    }
-  };
+     // Lisää uusi resepti Firestore-tietokantaan
+     console.log(newRecipe)
+     await addDoc(collection(db, 'recipes'), newRecipe);
+
+     Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
+
+     setRecipeName('');
+     setRecipeDetails('');
+     setRecipeIngredients('');
+     setRecipeInstructions('');
+     setRecipeImage(null);
+   } catch (error) {
+     console.error('Error saving recipe: ', error);
+   }
+ };
 
   const clearAllRecipes = async () => {
     try {

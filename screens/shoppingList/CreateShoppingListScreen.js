@@ -4,25 +4,9 @@ import { View, Text, TextInput, Button, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from '../../style/style';
 
-const CreateShoppingListScreen = ({ navigation }) => {
+const CreateShoppingListScreen = () => {
   const [shoppingListName, setShoppingListName] = useState('');
   const [items, setItems] = useState(['']); // Initial state with one empty item
-
-  // Function to update shopping lists state in ShoppingScreen after saving
-  const updateShoppingListsState = async (newShoppingList) => {
-    try {
-      const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
-      if (savedShoppingLists) {
-        const parsedLists = JSON.parse(savedShoppingLists);
-        const updatedLists = [...parsedLists, newShoppingList];
-        await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedLists));
-      } else {
-        await AsyncStorage.setItem('savedShoppingLists', JSON.stringify([newShoppingList]));
-      }
-    } catch (error) {
-      console.error('Error updating shopping lists state:', error);
-    }
-  };
 
   const saveShoppingList = async () => {
     try {
@@ -35,11 +19,19 @@ const CreateShoppingListScreen = ({ navigation }) => {
         items: filteredItems
       };
 
-      // Save the new shopping list
-      await AsyncStorage.setItem('savedShoppingLists', JSON.stringify([newShoppingList]));
+      // Fetch existing shopping lists from AsyncStorage
+      const existingLists = await AsyncStorage.getItem('savedShoppingLists');
+      const parsedLists = existingLists ? JSON.parse(existingLists) : [];
 
-      // Update shopping lists state in ShoppingScreen
-      updateShoppingListsState(newShoppingList);
+      // Add the new shopping list to the existing lists
+      const updatedLists = [...parsedLists, newShoppingList];
+
+      // Save the updated lists back to AsyncStorage
+      await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedLists));
+
+      // Temporary logging to verify data
+      const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
+      console.log('Saved shopping lists:', savedShoppingLists);
 
       Alert.alert('Success', 'Shopping list saved successfully.');
     } catch (error) {

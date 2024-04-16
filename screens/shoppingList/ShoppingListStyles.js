@@ -2,26 +2,27 @@ import { StyleSheet, StatusBar } from 'react-native';
 
 export default StyleSheet.create({
  
-  container: {
-    flex: 1,
-    backgroundColor: '#ECF7D9',
-  },
-
   shoppingListContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     borderWidth: 1,
     backgroundColor: '#ECF7D9'
   },
   scrollView: {
     marginHorizontal: 0,
-    maxHeight: 320,
-    
+    maxHeight: 250,
   },
 
   button: {
-    marginBottom: 20,
+    margin: 30,
+    marginTop: 80,
+    padding: 15,
+    fontSize: 16,
+    backgroundColor: '#AFF7AE',
+    borderWidth: 1.7,
+    borderRadius: 8,
+    fontWeight: 'bold',
   },
  
   header: {
@@ -92,7 +93,7 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontSize: 22, 
+    fontSize: 18, 
     padding: 20,
     textAlign: 'center'
   }, 
@@ -107,7 +108,13 @@ export default StyleSheet.create({
   title: {
     fontSize: 15,
     textAlign: 'center',
-    margin: 11
+    margin: 20,
+    borderWidth: 1.8,
+    padding: 15,
+    minWidth: 350,
+    borderRadius: 10,
+    backgroundColor: '#AFF7AE',
+    fontSize: 22,
   },
 
   input: {
@@ -131,11 +138,12 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     paddingHorizontal: 10, 
+    backgroundColor: '#AFF7AE'
   },
   editList: {
     margin: 20,
     borderWidth: 1,
-    height: 400,
+    maxHeight: 200,
     fontSize: 16,
     width: 350,
     padding: 20,
@@ -143,6 +151,49 @@ export default StyleSheet.create({
     borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#AFF7AE'
-  }
+  },
+  listName:{
+    borderWidth: 2,
+    borderRadius: 5,
+    width: 250,
+    padding: 10,
+    fontWeight: 'bold',
+    backgroundColor: '#AFF7AE'
+  },
   
+  buttons: {
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: '#AFF7AE',
+    margin: 10,
+    width: 200,
+    
+    maxHeight: 40
+  },
+  itemCount: {
+    textAlign: 'right',
+    marginBottom: 50,
+    fontStyle: 'italic'
+  },
+  previous: {
+    
+  },
+  
+  item: {
+    borderWidth: 1,
+    padding: 10,
+    minWidth: 200,
+    minHeight: 20,
+    margin: 10,
+    fontStyle: 'italic',
+    fontSize: 17,
+    backgroundColor: '#AFF7AE'
+  },
+
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    marginRight: 30
+  },
 });

@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,13 +15,49 @@ import BrowseShoppingListsScreen from './screens/shoppingList/BrowseShoppingList
 import ShoppingListDetailsScreen from './screens/shoppingList/ShoppingListDetailsScreen';
 import EditShoppingListScreen from './screens/shoppingList/EditShoppingListScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-
+import PastaScreen from './screens/Categories/Pasta';
+import SaladScreen from './screens/Categories/Salad';
+import FishScreen from './screens/Categories/Fish';
 import { db } from './firebase/Config';
+import VegeScreen from './screens/Categories/Vegetarian';
+import MeatScreen from './screens/Categories/Meat';
+import BurgersScreen from './screens/Categories/Burgers';
+import PizzaScreen from './screens/Categories/Pizza';
+import GrilledfoodsScreen from './screens/Categories/Grilledfoods';
+import SoupsScreen from './screens/Categories/Soups';
+import DessertsScreen from './screens/Categories/Desserts';
+import BreadandrollsScreen from './screens/Categories/Breadsandrolls';
+import GlutenFreeScreen from './screens/Categories/GlutenFree';
+import Search from './screens/Search/Search';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
 const Drawer = createDrawerNavigator();
+const Stack1 = createStackNavigator();
+
+
+
+const Categorystack = () => {
+  return (
+    <Stack1.Navigator >
+      <Stack1.Screen name=" " component={Home} />
+      <Stack1.Screen name="Pasta" component={PastaScreen} />
+      <Stack1.Screen name="Vegetarian" component={VegeScreen} />
+      <Stack1.Screen name="Salad" component={SaladScreen} />
+      <Stack1.Screen name="Fish" component={FishScreen} />
+      <Stack1.Screen name="Meat" component={MeatScreen} />
+      <Stack1.Screen name="Burgers" component={BurgersScreen} />
+      <Stack1.Screen name="Pizza" component={PizzaScreen} />
+      <Stack1.Screen name="Grilled foods" component={GrilledfoodsScreen} />
+      <Stack1.Screen name="Soups" component={SoupsScreen} />
+      <Stack1.Screen name="Desserts" component={DessertsScreen} />
+      <Stack1.Screen name="Breads and Rolls" component={BreadandrollsScreen} />
+      <Stack1.Screen name="Gluten-Free" component={GlutenFreeScreen} />
+      <Stack1.Screen name="Search" component={Search} />
+    </Stack1.Navigator>
+  );
+};
+
 
 
 // Function to render shopping screen
@@ -43,9 +80,13 @@ const MyDrawer = () => {
       <Drawer.Screen name="Register" component={Register} />
     </Drawer.Navigator>
   );
-}
+};
 
-export default function App() {
+
+
+
+
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -84,11 +125,26 @@ export default function App() {
         <Tab.Screen name= ' ' component={MyDrawer}
           options={{tapBarStyle : {display: 'none'}}}
         />
-        <Tab.Screen name='Home' component={Home}  />
+        <Tab.Screen name='Home' component={Categorystack}  />
         <Tab.Screen name='Add Recipe' component={AddRecipe} />
         <Tab.Screen name='Shopping List' component={ShoppingStack} />
         <Tab.Screen name='Profile' component={Profile} />
+        
+      
+
+          
+
+       
       </Tab.Navigator>
+      
+      
+
     </NavigationContainer>
+
+    
+   
+
   );
 }
+
+export default App;
