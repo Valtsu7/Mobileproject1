@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, ScrollView, SafeAreaView, FlatList, Pressable } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native'; // Lisätty navigointikirjasto
+import { useNavigation } from '@react-navigation/native';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase/Config'; // Tarkista tämä importti polkuun, jossa db-objekti sijaitsee
 import styles from './Homestyles';
 import Header from './Header';
 
@@ -11,11 +12,9 @@ const Home = ({ navigation, route }) => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const savedRecipes = await AsyncStorage.getItem('recipes');
-        if (savedRecipes) {
-          const parsedRecipes = JSON.parse(savedRecipes);
-          setRecipes(parsedRecipes);
-        }
+        const recipesSnapshot = await getDocs(collection(db, 'recipes'));
+        const fetchedRecipes = recipesSnapshot.docs.map(doc => doc.data());
+        setRecipes(fetchedRecipes);
       } catch (error) {
         console.error('Error retrieving recipes: ', error);
       }
