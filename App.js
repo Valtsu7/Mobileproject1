@@ -76,7 +76,7 @@ const ShoppingStack = () => {
 const MyDrawer = () => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Login/register" component={Login} />
+      <Drawer.Screen name=" Login" component={Login} />
       <Drawer.Screen name="Register" component={Register} />
     </Drawer.Navigator>
   );
@@ -122,7 +122,7 @@ const App = () => {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name= 'Login' component={MyDrawer}
+        <Tab.Screen name= ' ' component={MyDrawer}
           options={{tapBarStyle : {display: 'none'}}}
         />
         <Tab.Screen name='Home' component={Categorystack}  />
