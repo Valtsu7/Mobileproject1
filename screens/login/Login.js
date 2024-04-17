@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Alert, Button } from 'react-native';
-import { logout, signIn, resetPassword } from '../components/Auth';
+import { logout, signIn, resetPassword } from '../../components/Auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/Config';
+import { auth } from '../../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '../style/style';
+import styles from '../login/loginstyles';
 
 
 

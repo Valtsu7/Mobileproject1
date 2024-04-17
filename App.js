@@ -4,9 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack"
 import Home from './screens/Home/Home';
-import Login from './screens/Login';
+import Login from './screens/login/Login';
 import Profile from './screens/profile/Profile';
-import Register from './screens/Register';
+import Register from './screens/login/Register';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AddRecipe from './screens/AddRecipe/AddRecipe';
 import ShoppingScreen from './screens/shoppingList/ShoppingScreen';
