@@ -78,7 +78,7 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
       {shoppingList.items.map((item, index) => (
         <TouchableOpacity key={index} onPress={() => handleCheckboxPress(index)}>
           <View style={style.itemContainer}>
-            <CustomCheckbox checked={checkedItems[index]} onPress={() => handleCheckboxPress(index)} />
+            {/* <CustomCheckbox checked={checkedItems[index]} onPress={() => handleCheckboxPress(index)} /> */}
             <Text style={style.item}>{item}</Text>
           </View>
         </TouchableOpacity>
