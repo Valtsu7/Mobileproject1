@@ -1,5 +1,5 @@
-import { View, Text, Image, Pressable, Button } from "react-native"
-import styles from "../../style/style"
+import { View, Text, Image, Pressable, Button } from "react-native";
+import styles from '../profile/ProfileStyles'
 import ProfilePicture from "./ProfilePicture"
 
 export default Profile = ({navigation}, route) =>{
@@ -12,10 +12,10 @@ export default Profile = ({navigation}, route) =>{
                 <Text>Home</Text>
             </Pressable>
             {/* Logo */}
-            {/*<Image
-                source={require('../assets/flavorlogo2.png')}
+            <Image
+                source={require('../../assets/flavorlogo2.png')}
                 style={styles.logo}
-            />*/}
+            />
         </View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ProfilePicture />

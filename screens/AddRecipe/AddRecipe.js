@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 import { AntDesign } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
 
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
-
 
 const AddRecipe = () => {
   const [recipeName, setRecipeName] = useState('');
@@ -16,6 +16,10 @@ const AddRecipe = () => {
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeImage, setRecipeImage] = useState(null);
   const [recipes, setRecipes] = useState([]);
+  const [selectedTags, setSelectedTags] = useState(['', '', '', '']);
+  const [availableTags, setAvailableTags] = useState([
+     'Desserts', 'Dinner', 'Easy', 'Under 30 minutes', 'Under 45 minutes', 'Pasta', 'Pizza'
+  ]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -35,18 +39,17 @@ const AddRecipe = () => {
 
   const saveRecipe = async () => {
     try {
-      const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage };
-      
-      // Lisää uusi resepti Firestore-tietokantaan
+      const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage, tags: selectedTags };
       await addDoc(collection(db, 'recipes'), newRecipe);
-  
+
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-  
+
       setRecipeName('');
       setRecipeDetails('');
       setRecipeIngredients('');
       setRecipeInstructions('');
       setRecipeImage(null);
+      setSelectedTags(['', '', '', '']);
     } catch (error) {
       console.error('Error saving recipe: ', error);
     }
@@ -81,22 +84,29 @@ const AddRecipe = () => {
     }
   };
 
+  const handleTagSelection = (itemValue, index) => {
+    const newSelectedTags = [...selectedTags];
+    if (newSelectedTags.includes(itemValue)) {
+      // Jos tagi on jo valittu, näytetään ilmoitus
+      Alert.alert('Tag already selected!', null, [{ text: 'OK' }]);
+    } else {
+      // Muuten päivitetään valittujen tagien tila
+      newSelectedTags[index] = itemValue;
+      setSelectedTags(newSelectedTags);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.text}>Add your own recipe</Text>
 
-
-      
-       
-        <Pressable onPress={pickImage} style={styles.button2} >
+        <Pressable onPress={pickImage} style={styles.button2}>
           <View>
-           <Text style={styles.buttonText}>Pick Image</Text>
-           <AntDesign name="pluscircle" size={40} color="green" style={styles.plus}/>
-           </View>
+            <Text style={styles.buttonText}>Pick Image</Text>
+            <AntDesign name="pluscircle" size={40} color="green" style={styles.plus}/>
+          </View>
         </Pressable>
-
-        
 
         <View style={styles.input1}>
 
@@ -112,6 +122,7 @@ const AddRecipe = () => {
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Details"
+            multiline
             value={recipeDetails}
             onChangeText={setRecipeDetails}
           />
@@ -124,8 +135,8 @@ const AddRecipe = () => {
             value={recipeIngredients}
             onChangeText={setRecipeIngredients}
           />
-       
-       <Text style={styles.text1}>Here you can write down the instructions:</Text>
+
+          <Text style={styles.text1}>Here you can write down the instructions:</Text>
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Instructions"
@@ -133,6 +144,22 @@ const AddRecipe = () => {
             value={recipeInstructions}
             onChangeText={setRecipeInstructions}
           />
+
+          <Text style={styles.text1}>Select tags:</Text>
+          {selectedTags.map((tag, index) => (
+            <View key={index} style={styles.pickerContainer}>
+              <Picker
+                selectedValue={tag}
+                onValueChange={(itemValue) => handleTagSelection(itemValue, index)}
+                mode="dropdown"
+                style={styles.picker}
+              >
+                {availableTags.map((availableTag, i) => (
+                  <Picker.Item key={i} label={availableTag} value={availableTag} />
+                ))}
+              </Picker>
+            </View>
+          ))}
         </View>
 
         <Pressable onPress={saveRecipe} style={styles.button}>
@@ -150,10 +177,10 @@ const AddRecipe = () => {
             <Text>{recipe.recipeDetails}</Text>
             <Text>{recipe.recipeIngredients}</Text>
             <Text>{recipe.recipeInstructions}</Text>
+            <Text>{recipe.tags.join(', ')}</Text>
           </View>
         ))}
 
-        {/* Show image only if there is a saved recipe */}
         {recipes.length > 0 && recipeImage && <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />}
       </ScrollView>
     </View>

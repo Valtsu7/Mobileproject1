@@ -70,26 +70,18 @@ export default function Login({ navigation }) {
       
       <View style={styles.container}>
         <View style={styles.headerItem}>
-          <Text style={styles.header}>Todos: Login</Text>
+          <Text style={styles.header}>Login</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
             <MaterialIcons name="logout" size={24} color="black" />
           </Pressable>
         </View>
         <Text style={styles.infoText}>
-          You are logged in...
+          Go to your account...
         </Text>
         <Pressable style={styles.buttonStyle}>
           <Button
-            title="Todos"
-            onPress={() => navigation.navigate('Todos')} />
-        </Pressable>
-        <Text style={styles.infoText}>
-          Or to your account...
-        </Text>
-        <Pressable style={styles.buttonStyle}>
-          <Button
-            title="My account"
-            onPress={() => navigation.navigate('My Account')} />
+            title="Profile"
+            onPress={() => navigation.navigate('Profile')} />
         </Pressable>
       </View>
     )
