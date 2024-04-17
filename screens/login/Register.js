@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Alert, Button, Pressable } from 'react-native';
-import { logout, signUp } from '../components/Auth';
+import { logout, signUp } from '../../components/Auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/Config';
+import { auth } from '../../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '../style/style';
+import styles from '../login/loginstyles'
 
 export default function Register({ navigation }) {
 
