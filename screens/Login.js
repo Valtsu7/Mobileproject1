@@ -6,6 +6,8 @@ import { auth } from '../firebase/Config';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../style/style';
 
+
+
 export default function Login({ navigation }) {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,6 +66,8 @@ export default function Login({ navigation }) {
 
   if (isLoggedIn) {
     return(
+
+      
       <View style={styles.container}>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Login</Text>
