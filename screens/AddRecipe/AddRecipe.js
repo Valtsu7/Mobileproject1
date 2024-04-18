@@ -152,10 +152,7 @@ const AddRecipe = () => {
           <Text style={styles.buttonText}>Save Recipe</Text>
         </Pressable>
 
-        {/* Show image only if there is a saved recipe */}
-        {recipes.length > 0 && recipeImage && (
-          <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />
-        )}
+       
       </ScrollView>
     </View>
   );
