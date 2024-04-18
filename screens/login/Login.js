@@ -69,6 +69,7 @@ export default function Login({ navigation }) {
       
       
       <View style={styles.container}>
+        
         <View style={styles.headerItem}>
           <Text style={styles.header}>Login</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
