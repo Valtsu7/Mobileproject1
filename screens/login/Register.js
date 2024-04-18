@@ -46,7 +46,7 @@ export default function Register({ navigation }) {
           setEmail('');
           setPassword('');
           setConfirmPassword('');
-          navigation.navigate('Todos');
+          navigation.navigate('Home');
         } 
       });
     }
