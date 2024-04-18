@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const AddRecipe = () => {
   const [recipeName, setRecipeName] = useState('');
@@ -16,8 +16,10 @@ const AddRecipe = () => {
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeImage, setRecipeImage] = useState(null);
   const [recipes, setRecipes] = useState([]);
+  const storage = getStorage();
 
   useEffect(() => {
+    // Fetch recipes from AsyncStorage on component mount
     const fetchRecipes = async () => {
       try {
         const savedRecipes = await AsyncStorage.getItem('recipes');
@@ -33,36 +35,6 @@ const AddRecipe = () => {
     fetchRecipes();
   }, []);
 
-  const saveRecipe = async () => {
-    try {
-      const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage };
-      
-     // Lisää uusi resepti Firestore-tietokantaan
-     console.log(newRecipe)
-     await addDoc(collection(db, 'recipes'), newRecipe);
-
-     Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-
-     setRecipeName('');
-     setRecipeDetails('');
-     setRecipeIngredients('');
-     setRecipeInstructions('');
-     setRecipeImage(null);
-   } catch (error) {
-     console.error('Error saving recipe: ', error);
-   }
- };
-
-  const clearAllRecipes = async () => {
-    try {
-      await AsyncStorage.removeItem('recipes');
-      setRecipes([]);
-      Alert.alert('All recipes cleared!', null, [{ text: 'OK' }]);
-    } catch (error) {
-      console.error('Error clearing recipes: ', error);
-    }
-  };
-
   const pickImage = async () => {
     console.log('Attempting to pick an image...');
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -71,14 +43,57 @@ const AddRecipe = () => {
       alert('Permission to access camera roll is required!');
       return;
     }
-
+  
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
     console.log('Picker result:', pickerResult);
-    if (pickerResult.cancelled !== true) {
+    if (!pickerResult.cancelled) {
       console.log('Image picked successfully:', pickerResult.assets[0].uri);
       setRecipeImage(pickerResult.assets[0].uri);
     } else {
       console.log('Image picking cancelled');
+    }
+  };
+
+  const saveRecipe = async () => {
+    try {
+      if (!recipeImage) {
+        Alert.alert('Error', 'Please pick an image for the recipe', [{ text: 'OK' }]);
+        return;
+      }
+
+      // Convert the image URI to blob
+      const response = await fetch(recipeImage);
+      const blob = await response.blob();
+
+      // Upload image blob to Firebase Storage
+      const imageRef = ref(storage, `recipeImages/${recipeName}`);
+      await uploadBytes(imageRef, blob);
+
+      // Get the download URL for the uploaded image
+      const imageUrl = await getDownloadURL(imageRef);
+
+      // Create new recipe object with image URL
+      const newRecipe = {
+        recipeName,
+        recipeDetails,
+        recipeIngredients,
+        recipeInstructions,
+        recipeImage: imageUrl,
+      };
+
+      // Add new recipe to Firestore
+      await addDoc(collection(db, 'recipes'), newRecipe);
+
+      Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
+
+      // Clear input fields after saving
+      setRecipeName('');
+      setRecipeDetails('');
+      setRecipeIngredients('');
+      setRecipeInstructions('');
+      setRecipeImage(null);
+    } catch (error) {
+      console.error('Error saving recipe: ', error);
     }
   };
 
@@ -87,20 +102,14 @@ const AddRecipe = () => {
       <ScrollView>
         <Text style={styles.text}>Add your own recipe</Text>
 
-
-      
-       
-        <Pressable onPress={pickImage} style={styles.button2} >
+        <Pressable onPress={pickImage} style={styles.button2}>
           <View>
-           <Text style={styles.buttonText}>Pick Image</Text>
-           <AntDesign name="pluscircle" size={40} color="green" style={styles.plus}/>
-           </View>
+            <Text style={styles.buttonText}>Pick Image</Text>
+            <AntDesign name="pluscircle" size={40} color="green" style={styles.plus} />
+          </View>
         </Pressable>
 
-        
-
         <View style={styles.input1}>
-
           <Text style={styles.text1}>What is the name of this recipe?</Text>
           <TextInput
             style={styles.input}
@@ -126,7 +135,7 @@ const AddRecipe = () => {
             onChangeText={setRecipeIngredients}
           />
        
-       <Text style={styles.text1}>Here you can write down the instructions:</Text>
+          <Text style={styles.text1}>Here you can write down the instructions:</Text>
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Instructions"
@@ -140,22 +149,10 @@ const AddRecipe = () => {
           <Text style={styles.buttonText}>Save Recipe</Text>
         </Pressable>
 
-        <Pressable onPress={clearAllRecipes} style={styles.button1}>
-          <Text>Clear All Recipes</Text>
-        </Pressable>
-
-        {recipes.map((recipe, index) => (
-          <View key={index}>
-            {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />}
-            <Text>{recipe.recipeName}</Text>
-            <Text>{recipe.recipeDetails}</Text>
-            <Text>{recipe.recipeIngredients}</Text>
-            <Text>{recipe.recipeInstructions}</Text>
-          </View>
-        ))}
-
         {/* Show image only if there is a saved recipe */}
-        {recipes.length > 0 && recipeImage && <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />}
+        {recipes.length > 0 && recipeImage && (
+          <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />
+        )}
       </ScrollView>
     </View>
   );
