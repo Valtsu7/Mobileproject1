@@ -46,7 +46,7 @@ const AddRecipe = () => {
   
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
     console.log('Picker result:', pickerResult);
-    if (!pickerResult.cancelled) {
+    if (!pickerResult.canceled) {
       console.log('Image picked successfully:', pickerResult.assets[0].uri);
       setRecipeImage(pickerResult.assets[0].uri);
     } else {
@@ -60,18 +60,21 @@ const AddRecipe = () => {
         Alert.alert('Error', 'Please pick an image for the recipe', [{ text: 'OK' }]);
         return;
       }
-
+  
       // Convert the image URI to blob
       const response = await fetch(recipeImage);
       const blob = await response.blob();
-
+  
       // Upload image blob to Firebase Storage
       const imageRef = ref(storage, `recipeImages/${recipeName}`);
       await uploadBytes(imageRef, blob);
-
+  
       // Get the download URL for the uploaded image
       const imageUrl = await getDownloadURL(imageRef);
-
+  
+      // Log the image URI
+      console.log('Image URI:', imageUrl);
+  
       // Create new recipe object with image URL
       const newRecipe = {
         recipeName,
@@ -80,12 +83,12 @@ const AddRecipe = () => {
         recipeInstructions,
         recipeImage: imageUrl,
       };
-
+  
       // Add new recipe to Firestore
       await addDoc(collection(db, 'recipes'), newRecipe);
-
+  
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-
+  
       // Clear input fields after saving
       setRecipeName('');
       setRecipeDetails('');
@@ -149,10 +152,7 @@ const AddRecipe = () => {
           <Text style={styles.buttonText}>Save Recipe</Text>
         </Pressable>
 
-        {/* Show image only if there is a saved recipe */}
-        {recipes.length > 0 && recipeImage && (
-          <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />
-        )}
+       
       </ScrollView>
     </View>
   );
