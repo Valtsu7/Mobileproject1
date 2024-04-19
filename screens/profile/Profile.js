@@ -26,7 +26,7 @@
 import { useState, useEffect } from 'react';
 import { Text, View, Pressable, Button, TextInput, Alert } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db, USERS_REF } from '../../components/Auth';
+import { auth, db, USERS_REF } from '../../firebase/Config';
 import { changePassword, logout, removeUser } from '../../components/Auth';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { MaterialIcons } from '@expo/vector-icons';
