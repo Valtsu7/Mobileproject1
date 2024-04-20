@@ -84,10 +84,6 @@ const MyDrawer = () => {
   );
 };
 
-
-
-
-
 const App = () => {
   return (
     <NavigationContainer>
@@ -124,6 +120,7 @@ const App = () => {
           tabBarInactiveTintColor: 'gray',
         })}
       >
+        
         <Tab.Screen name= ' ' component={MyDrawer}
           options={{tapBarStyle : {display: 'none'}}}
         />
