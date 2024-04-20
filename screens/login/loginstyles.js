@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
       color: 'blue',
       textDecorationLine: 'underline',
     },
+    logoContainer: {
+      
+    },
     logoutIcon: {
       position: 'absolute',
       right: 0,

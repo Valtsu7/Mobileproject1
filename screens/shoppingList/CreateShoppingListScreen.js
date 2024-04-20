@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import style from '../../style/style';
+import style from './ShoppingListStyles';
 
 const CreateShoppingListScreen = () => {
   const [shoppingListName, setShoppingListName] = useState('');

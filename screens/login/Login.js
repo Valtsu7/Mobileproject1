@@ -40,7 +40,7 @@ export default function Login({ navigation }) {
         if (user) {
           setEmail('');
           setPassword('');
-          navigation.navigate('Todos');
+          navigation.navigate('Login');
         }
       });
     }
@@ -66,9 +66,10 @@ export default function Login({ navigation }) {
 
   if (isLoggedIn) {
     return(
-
+      
       
       <View style={styles.container}>
+        
         <View style={styles.headerItem}>
           <Text style={styles.header}>Login</Text>
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
