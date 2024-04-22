@@ -73,6 +73,9 @@ export default function Login({ navigation }) {
         <Text style={styles.header}>
           Welcome to FlavorFriends!
         </Text>
+        <Text style={styles.header}>
+          
+        </Text>
         
         <View style={styles.headerItem}>
           
@@ -99,6 +102,9 @@ export default function Login({ navigation }) {
       <View style={styles.container}>
         <Text style={styles.header}>
           Welcome to FlavorFriends!
+        </Text>
+        <Text style={styles.header}>
+          
         </Text>
 
         <View style={styles.headerItem}>
