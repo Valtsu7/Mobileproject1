@@ -178,7 +178,7 @@ const AddRecipe = () => {
             <Text>{recipe.recipeDetails}</Text>
             <Text>{recipe.recipeIngredients}</Text>
             <Text>{recipe.recipeInstructions}</Text>
-            <Text>{recipe.tags.join(', ')}</Text>
+            {recipe.tags && <Text>{recipe.tags.join(', ')}</Text>}
           </View>
         ))}
 
