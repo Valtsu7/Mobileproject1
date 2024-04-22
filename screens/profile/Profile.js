@@ -24,14 +24,14 @@
 //     )
 // }
 import { useState, useEffect } from 'react';
-import { Text, View, Pressable, Button, TextInput, Alert } from 'react-native';
+import { Text, View, Pressable, Button, TextInput, Alert, Image } from 'react-native';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../../firebase/Config';
 import { changePassword, logout, removeUser } from '../../components/Auth';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import ProfilePicture from "./ProfilePicture"
 import { MaterialIcons } from '@expo/vector-icons';
-import styles from '../../style/style';
-
+import styles from '../profile/ProfileStyles';
 
 export default function Profile({ navigation }) {
 
@@ -79,7 +79,7 @@ export default function Profile({ navigation }) {
     })
   }
 
-  const handlePressLogout = () => {
+  const handlePressLogout = async () => {
     logout();
     navigation.navigate('Login');
   };
@@ -115,7 +115,7 @@ export default function Profile({ navigation }) {
     return (
       <View style={styles.container}>
         <View style={styles.headerItem}>
-          <Text style={styles.header}>Todos: My Account</Text>
+          <Text style={styles.header}>My Account</Text>
         </View>
         <Text style={styles.infoText}>Login to your account</Text>
         <Pressable style={styles.buttonStyle}>
@@ -135,18 +135,27 @@ export default function Profile({ navigation }) {
   else {
     return (
       <View style={styles.container}>
-        <View style={styles.headerItem}>
-          <Text style={styles.header}>Todos: My Account</Text>
-          <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
-            <MaterialIcons name="logout" size={24} color="black" />
+        <View style={styles.header}>
+          <Pressable style={{marginTop: 17}}
+            onPress={() => navigation.navigate('Home')}>
+              <Text>Home</Text>
           </Pressable>
+            {/* Logo */}
+            <Image
+              source={require('../../assets/flavorlogo2.png')}
+              style={styles.logo}
+            />
         </View>
-        <Text style={styles.myAccountSubheader}>Update account</Text>
-        <Text style={styles.myAccountLabel}>Account: {email}</Text>
-        <Text style={styles.myAccountLabel}>Nickname</Text>
-        <TextInput
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ProfilePicture />
+        </View>
+
+        <Text style={styles.profileSubheader}>Update account:</Text>
+        <Text style={styles.text}>Account: {email}</Text>
+        <Text style={styles.text}>Nickname: </Text>
+        <TextInput 
           value={nickname}
-          style={styles.myAccountTextInput}
+          style={styles.text}
           onChangeText={setNickname}
         />
         <View style={styles.buttonStyle}>
@@ -155,7 +164,7 @@ export default function Profile({ navigation }) {
             onPress={() => updateUserData()}
           />
         </View>
-        <Text style={styles.myAccountSubheader}>Change password</Text>
+        <Text style={styles.profileSubheader}>Change password:</Text>
         <TextInput
           style={styles.textInput}
           placeholder="Enter your new password*"
@@ -175,7 +184,8 @@ export default function Profile({ navigation }) {
             title="Change password"
             onPress={handlePressChangePw} />
         </View>
-        <Text style={styles.myAccountSubheader}>Delete account</Text>
+      
+        <Text style={styles.profileSubheader}>Delete account:</Text>
         <TextInput
           style={styles.textInput}
           placeholder="Type DELETE here to confirm"
@@ -183,6 +193,7 @@ export default function Profile({ navigation }) {
           onChangeText={(confirmDelete) => setConfirmDelete(confirmDelete)}
           autoCapitalize="characters"
         />
+        
         <View style={styles.buttonStyle}>
           <Button
             title="Delete account"
@@ -192,6 +203,13 @@ export default function Profile({ navigation }) {
         <Text style={styles.infoText}>
           Your data will be removed from the database!
         </Text>
+        <View>
+          <Text>
+            <Button
+            title='Logout'
+            onPress={() => handlePressLogout()}></Button>
+          </Text>
+        </View>
       </View>
     );
   }
