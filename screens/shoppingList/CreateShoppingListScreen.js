@@ -1,6 +1,6 @@
 // screens/shoppingList/CreateShoppingListScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, Alert, ScrollView, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from './ShoppingListStyles';
 
@@ -51,8 +51,13 @@ const CreateShoppingListScreen = () => {
   };
 
   return (
-    <View style={style.shoppingListContainer}>
-      <Text style={style.title}>Create a New Shopping List</Text>
+    <View style={style.shoppingListContainer}><View style={style.logoContainer}>
+    {/* Logo */}
+    <Image
+      source={require('../../assets/flavorlogo2.png')}
+      style={style.logo}
+    />
+  </View>
       <TextInput
         style={style.input}
         onChangeText={text => setShoppingListName(text)}

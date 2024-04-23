@@ -88,7 +88,10 @@ const AddRecipe = () => {
     const newSelectedTags = [...selectedTags];
     if (newSelectedTags.includes(itemValue)) {
       // Jos tagi on jo valittu, näytetään ilmoitus
-      Alert.alert('Tag already selected!', null, [{ text: 'OK' }]);
+      // if (!alertShown) {
+        Alert.alert('Tag already selected!', null, [{ text: 'OK' }]);
+      //  setAlertShown(true); // Merkitään, että alert on näytetty tällä sivulla
+      //}
     } else {
       // Muuten päivitetään valittujen tagien tila
       newSelectedTags[index] = itemValue;

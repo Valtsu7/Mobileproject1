@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     // justifyContent: 'center',
-    borderWidth: 1,
+    
     backgroundColor: '#ECF7D9'
   },
   scrollView: {
@@ -40,8 +40,8 @@ export default StyleSheet.create({
     
   },
   logo: {
-    width: 60, 
-    height: 60, 
+    width: 80, 
+    height: 80, 
   },
 
   logo2: {
@@ -117,15 +117,25 @@ export default StyleSheet.create({
     fontSize: 22,
   },
 
+  title1: {
+    fontSize: 15,
+    textAlign: 'center',
+    
+    padding: 15,
+    minWidth: 410,
+    borderRadius: 10,
+    backgroundColor: '#AFF7AE',
+    fontSize: 22,
+  },
+  
+
   input: {
     height: 40,
     width: 250,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
-    marginTop: 20,
-    
-    marginLeft: 80,
+    margin: 20,
     padding: 10
     
     
@@ -196,4 +206,8 @@ export default StyleSheet.create({
     marginBottom: 8,
     marginRight: 30
   },
+
+  enterListName: {
+    borderWidth: 2
+  }
 });
