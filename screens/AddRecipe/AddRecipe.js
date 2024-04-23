@@ -48,8 +48,8 @@ const AddRecipe = () => {
 
   if (!user) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>You must be logged in to add recipes.</Text>
+      <View style={styles.container1}>
+        <Text style={styles.text2}>You must be logged in to add recipes.</Text>
       </View>
     );
   }
