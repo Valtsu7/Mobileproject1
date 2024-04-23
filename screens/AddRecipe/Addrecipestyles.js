@@ -94,6 +94,21 @@ export default StyleSheet.create({
     left: -60, 
 
   },
+
+  container1: {
+
+    marginLeft: 20, 
+    
+
+
+  },
+
+  text2: {
+
+    fontSize: 22, 
+    
+
+  },
  
   
 });
