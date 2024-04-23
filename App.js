@@ -1,5 +1,4 @@
-// App.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack"
@@ -18,7 +17,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import PastaScreen from './screens/Categories/Pasta';
 import SaladScreen from './screens/Categories/Salad';
 import FishScreen from './screens/Categories/Fish';
-import { db } from './firebase/Config';
+import { db, auth } from './firebase/Config';
 import VegeScreen from './screens/Categories/Vegetarian';
 import MeatScreen from './screens/Categories/Meat';
 import BurgersScreen from './screens/Categories/Burgers';
@@ -36,33 +35,50 @@ const Stack = createStackNavigator(); // Create a stack navigator
 const Drawer = createDrawerNavigator();
 const Stack1 = createStackNavigator();
 
-
-
-const Categorystack = () => {
+// Function to render the bottom navigation
+const BottomNavigation = () => {
   return (
-    <Stack1.Navigator >
-      <Stack1.Screen name=" " component={Home} />
-      <Stack1.Screen name="Pasta" component={PastaScreen} />
-      <Stack1.Screen name="Vegetarian" component={VegeScreen} />
-      <Stack1.Screen name="Salad" component={SaladScreen} />
-      <Stack1.Screen name="Fish" component={FishScreen} />
-      <Stack1.Screen name="Meat" component={MeatScreen} />
-      <Stack1.Screen name="Burgers" component={BurgersScreen} />
-      <Stack1.Screen name="Pizza" component={PizzaScreen} />
-      <Stack1.Screen name="Grilled foods" component={GrilledfoodsScreen} />
-      <Stack1.Screen name="Soups" component={SoupsScreen} />
-      <Stack1.Screen name="Desserts" component={DessertsScreen} />
-      <Stack1.Screen name="Breads and Rolls" component={BreadandrollsScreen} />
-      <Stack1.Screen name="Gluten-Free" component={GlutenFreeScreen} />
-      <Stack1.Screen name="Search" component={Search} />
-      <Stack1.Screen name="Recipe" component={RecipeScreen} />
-    </Stack1.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'home-circle'
+              : 'home-circle-outline';
+
+          } else if (route.name === 'Add Recipe') {
+            iconName = focused 
+              ? 'plus-circle'
+              : 'plus-circle-outline';
+              
+          } else if (route.name === 'Shopping List') {
+            iconName = focused 
+              ? 'cart'
+              : 'cart-outline';
+          }
+           else if (route.name === 'Profile') {
+            iconName = focused 
+              ? 'food-apple'
+              : 'food-apple-outline';
+          }
+        
+          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'green',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen name='Home' component={Home}  />
+      <Tab.Screen name='Add Recipe' component={AddRecipe} />
+      <Tab.Screen name='Shopping List' component={ShoppingStack} />
+      <Tab.Screen name='Profile' component={Profile} />
+    </Tab.Navigator>
   );
 };
 
-
-
-// Function to render shopping screen
+// Function to render the stack navigator for shopping screens
 const ShoppingStack = () => {
   return (
     <Stack.Navigator>
@@ -75,74 +91,28 @@ const ShoppingStack = () => {
   );
 };
 
-const MyDrawer = () => {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name=" Login" component={Login} />
-      <Drawer.Screen name="Register" component={Register} />
-    </Drawer.Navigator>
-  );
-};
-
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setIsLoggedIn(!!user);
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        sceneContainerStyle={{ backgroundColor: 'transparent' }}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home-circle'
-                : 'home-circle-outline';
-
-            } else if (route.name === 'Add Recipe') {
-              iconName = focused 
-                ? 'plus-circle'
-                : 'plus-circle-outline';
-                
-            } else if (route.name === 'Shopping List') {
-              iconName = focused 
-                ? 'cart'
-                : 'cart-outline';
-            }
-             else if (route.name === 'Profile') {
-              iconName = focused 
-                ? 'food-apple'
-                : 'food-apple-outline';
-            }
-          
-            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'green',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        
-        <Tab.Screen name= ' ' component={MyDrawer}
-          options={{tapBarStyle : {display: 'none'}}}
-        />
-        <Tab.Screen name='Home' component={Categorystack}  />
-        <Tab.Screen name='Add Recipe' component={AddRecipe} />
-        <Tab.Screen name='Shopping List' component={ShoppingStack} />
-        <Tab.Screen name='Profile' component={Profile} />
-        
-      
-
-          
-
-       
-      </Tab.Navigator>
-      
-      
-
+      {isLoggedIn ? (
+        <BottomNavigation />
+      ) : (
+        <Stack.Navigator headerMode="none">
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
-
-    
-   
-
   );
 }
 

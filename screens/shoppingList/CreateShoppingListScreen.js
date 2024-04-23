@@ -77,8 +77,8 @@ const CreateShoppingListScreen = () => {
       </ScrollView>
       <Button title="Add Item" onPress={addItem} />
       <Button title="Save Shopping List" onPress={saveShoppingList} />
-    </View>
-  );
+    </View>  
+  );   
 };
 
 export default CreateShoppingListScreen;
