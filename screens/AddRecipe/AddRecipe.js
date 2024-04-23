@@ -5,11 +5,14 @@ import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 import { AntDesign } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
+import { auth } from '../../firebase/Config';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
 
 const AddRecipe = () => {
+  const [user, setUser] = useState(null);
   const [recipeName, setRecipeName] = useState('');
   const [recipeDetails, setRecipeDetails] = useState('');
   const [recipeIngredients, setRecipeIngredients] = useState('');
@@ -18,7 +21,7 @@ const AddRecipe = () => {
   const [recipes, setRecipes] = useState([]);
   const [selectedTags, setSelectedTags] = useState(['', '', '', '']);
   const [availableTags, setAvailableTags] = useState([
-    'Desserts', 'Dinner', 'Easy', 'Under 30 minutes', 'Under 45 minutes', 'Pasta', 'Pizza'
+    'Desserts', 'Main dishes', 'Easy', 'Under 30 minutes', 'Under 45 minutes', 'Pasta', 'Pizza'
   ]);
 
   useEffect(() => {
@@ -30,20 +33,43 @@ const AddRecipe = () => {
           setRecipes(parsedRecipes);
         }
       } catch (error) {
-        console.error('Error retrieving recipes: ', error);
+        console.error('Error loading recipes: ', error);
       }
     };
 
     fetchRecipes();
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return unsubscribe;
   }, []);
+
+  if (!user) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>You must be logged in to add recipes.</Text>
+      </View>
+    );
+  }
 
   const saveRecipe = async () => {
     try {
-      const newRecipe = { recipeName, recipeDetails, recipeIngredients, recipeInstructions, recipeImage, tags: selectedTags };
+      const newRecipe = {
+        recipeName,
+        recipeDetails,
+        recipeIngredients,
+        recipeInstructions,
+        recipeImage,
+        tags: selectedTags.filter(tag => tag !== ''),  // Filter out empty strings
+        createdBy: user.uid
+      };
+  
       await addDoc(collection(db, 'recipes'), newRecipe);
-
+  
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-
+  
       setRecipeName('');
       setRecipeDetails('');
       setRecipeIngredients('');
@@ -52,51 +78,31 @@ const AddRecipe = () => {
       setSelectedTags(['', '', '', '']);
     } catch (error) {
       console.error('Error saving recipe: ', error);
-    }
-  };
-
-  const clearAllRecipes = async () => {
-    try {
-      await AsyncStorage.removeItem('recipes');
-      setRecipes([]);
-      Alert.alert('All recipes cleared!', null, [{ text: 'OK' }]);
-    } catch (error) {
-      console.error('Error clearing recipes: ', error);
+      Alert.alert('Error', 'Failed to save the recipe', [{ text: 'OK' }]);
     }
   };
 
   const pickImage = async () => {
-    console.log('Attempting to pick an image...');
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (permissionResult.granted === false) {
-      console.log('Permission to access camera roll is required!');
-      alert('Permission to access camera roll is required!');
+    if (!permissionResult.granted) {
+      alert('Permission to access the photo gallery is required!');
       return;
     }
 
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    console.log('Picker result:', pickerResult);
-    if (pickerResult.cancelled !== true) {
-      console.log('Image picked successfully:', pickerResult.assets[0].uri);
+    if (!pickerResult.cancelled) {
       setRecipeImage(pickerResult.assets[0].uri);
-    } else {
-      console.log('Image picking cancelled');
     }
   };
 
-  const handleTagSelection = (itemValue, index) => {
+  const handleTagSelection = (itemValue, itemIndex) => {
     const newSelectedTags = [...selectedTags];
     if (newSelectedTags.includes(itemValue)) {
-      // Jos tagi on jo valittu, näytetään ilmoitus
-      // if (!alertShown) {
-        Alert.alert('Tag already selected!', null, [{ text: 'OK' }]);
-      //  setAlertShown(true); // Merkitään, että alert on näytetty tällä sivulla
-      //}
-    } else {
-      // Muuten päivitetään valittujen tagien tila
-      newSelectedTags[index] = itemValue;
-      setSelectedTags(newSelectedTags);
+      Alert.alert('Error', 'This tag has already been selected!', [{ text: 'OK' }]);
+      return;
     }
+    newSelectedTags[itemIndex] = itemValue;
+    setSelectedTags(newSelectedTags);
   };
 
   return (
@@ -112,7 +118,6 @@ const AddRecipe = () => {
         </Pressable>
 
         <View style={styles.input1}>
-
           <Text style={styles.text1}>What is the name of this recipe?</Text>
           <TextInput
             style={styles.input}
@@ -121,7 +126,7 @@ const AddRecipe = () => {
             onChangeText={setRecipeName}
           />
 
-          <Text style={styles.text1}>You can write short introduction about the recipe if you like:</Text>
+          <Text style={styles.text1}>You can write a short introduction about the recipe if you like:</Text>
           <TextInput
             style={[styles.input, { height: 100 }]}
             placeholder="Recipe Details"
@@ -151,41 +156,24 @@ const AddRecipe = () => {
           <Text style={styles.text1}>Select tags:</Text>
           {selectedTags.map((tag, index) => (
             <View key={index} style={styles.pickerContainer}>
-            <Picker
-              selectedValue={tag}
-              onValueChange={(itemValue) => handleTagSelection(itemValue, index)}
-              mode="dropdown"
-              style={styles.picker}
-            >
-              {!tag && <Picker.Item label="Select tag" value={null} />} 
-              {availableTags.map((availableTag, i) => (
-                <Picker.Item key={i} label={availableTag} value={availableTag} />
-              ))}
-            </Picker>
-          </View>
+              <Picker
+                selectedValue={tag}
+                onValueChange={(itemValue, itemIndex) => handleTagSelection(itemValue, index)}
+                mode="dropdown"
+                style={styles.picker}
+              >
+                {!tag && <Picker.Item label="Select a tag" value="" />}
+                {availableTags.map((availableTag, i) => (
+                  <Picker.Item key={i} label={availableTag} value={availableTag} />
+                ))}
+              </Picker>
+            </View>
           ))}
         </View>
 
         <Pressable onPress={saveRecipe} style={styles.button}>
           <Text style={styles.buttonText}>Save Recipe</Text>
         </Pressable>
-
-        <Pressable onPress={clearAllRecipes} style={styles.button1}>
-          <Text>Clear All Recipes</Text>
-        </Pressable>
-
-        {recipes.map((recipe, index) => (
-          <View key={index}>
-            {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={{ width: 200, height: 200 }} />}
-            <Text>{recipe.recipeName}</Text>
-            <Text>{recipe.recipeDetails}</Text>
-            <Text>{recipe.recipeIngredients}</Text>
-            <Text>{recipe.recipeInstructions}</Text>
-            {recipe.tags && <Text>{recipe.tags.join(', ')}</Text>}
-          </View>
-        ))}
-
-        {recipes.length > 0 && recipeImage && <Image source={{ uri: recipeImage }} style={{ width: 200, height: 200 }} />}
       </ScrollView>
     </View>
   );

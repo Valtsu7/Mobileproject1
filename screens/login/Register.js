@@ -80,6 +80,12 @@ export default function Register({ navigation }) {
   else {
     return (
       <View style={styles.container}>
+        <Text style={styles.header}>
+          Welcome to FlavorFriends!
+        </Text>
+        <Text style={styles.header}>
+          
+        </Text>
         <View style={styles.headerItem}>
           <Text style={styles.header}>Register</Text>
         </View>

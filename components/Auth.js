@@ -126,3 +126,6 @@ const deleteUserDocument = async () => {
     Alert.alert("User document delete error. ", error.message);
   });
 };
+
+
+export const getAuth = () => auth;

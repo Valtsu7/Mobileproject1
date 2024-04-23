@@ -70,12 +70,22 @@ export default function Login({ navigation }) {
       
       <View style={styles.container}>
         
+        <Text style={styles.header}>
+          Welcome to FlavorFriends!
+        </Text>
+        <Text style={styles.header}>
+          
+        </Text>
+        
         <View style={styles.headerItem}>
-          <Text style={styles.header}>Login</Text>
+          
+          <Text style={styles.header}>Log out    </Text>
+          
           <Pressable style={styles.logoutIcon} onPress={handlePressLogout}>
             <MaterialIcons name="logout" size={24} color="black" />
           </Pressable>
         </View>
+        
         <Text style={styles.infoText}>
           Go to your account...
         </Text>
@@ -90,7 +100,15 @@ export default function Login({ navigation }) {
   else { 
     return (
       <View style={styles.container}>
+        <Text style={styles.header}>
+          Welcome to FlavorFriends!
+        </Text>
+        <Text style={styles.header}>
+          
+        </Text>
+
         <View style={styles.headerItem}>
+          
           <Text style={styles.header}>Login</Text>
         </View>
         <Text style={styles.infoText}>Login to your account</Text>
