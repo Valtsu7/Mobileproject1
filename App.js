@@ -28,7 +28,7 @@ import DessertsScreen from './screens/Categories/Desserts';
 import BreadandrollsScreen from './screens/Categories/Breadsandrolls';
 import GlutenFreeScreen from './screens/Categories/GlutenFree';
 import Search from './screens/Search/Search';
-import RecipeScreen from './screens/Recipe/Recipe';
+import Recipe from './screens/Recipe/Recipe';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
@@ -70,7 +70,7 @@ const BottomNavigation = () => {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name='Home' component={Home}  />
+      <Tab.Screen name='Home' component={Categorystack}  />
       <Tab.Screen name='Add Recipe' component={AddRecipe} />
       <Tab.Screen name='Shopping List' component={ShoppingStack} />
       <Tab.Screen name='Profile' component={Profile} />
@@ -88,6 +88,29 @@ const ShoppingStack = () => {
       <Stack.Screen name="Selected list" component={ShoppingListDetailsScreen} /> 
       <Stack.Screen name="Edit list" component={EditShoppingListScreen} /> 
     </Stack.Navigator>
+  );
+};
+
+
+const Categorystack = () => {
+  return (
+    <Stack1.Navigator  >
+      <Stack1.Screen name=" " component={Home} />
+      <Stack1.Screen name="Pasta" component={PastaScreen} />
+      <Stack1.Screen name="Vegetarian" component={VegeScreen} />
+      <Stack1.Screen name="Salad" component={SaladScreen} />
+      <Stack1.Screen name="Fish" component={FishScreen} />
+      <Stack1.Screen name="Meat" component={MeatScreen} />
+      <Stack1.Screen name="Burgers" component={BurgersScreen} />
+      <Stack1.Screen name="Pizza" component={PizzaScreen} />
+      <Stack1.Screen name="Grilled foods" component={GrilledfoodsScreen} />
+      <Stack1.Screen name="Soups" component={SoupsScreen} />
+      <Stack1.Screen name="Desserts" component={DessertsScreen} />
+      <Stack1.Screen name="Breads and Rolls" component={BreadandrollsScreen} />
+      <Stack1.Screen name="Gluten-Free" component={GlutenFreeScreen} />
+      <Stack1.Screen name="Search" component={Search} />
+      <Stack1.Screen name="Recipe" component={Recipe} />
+    </Stack1.Navigator>
   );
 };
 
