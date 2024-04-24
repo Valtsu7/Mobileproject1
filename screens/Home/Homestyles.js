@@ -117,8 +117,9 @@ export default StyleSheet.create({
  
   recipeName: {
     position: "absolute" ,
-    top: 250, 
-    left: 20, 
+    top: 270, 
+    left: 14, 
+    right: 0, 
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
