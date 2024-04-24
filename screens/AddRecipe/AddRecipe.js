@@ -4,10 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 import { AntDesign } from '@expo/vector-icons';
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker'; // Korjattu tuonti
 import { auth } from '../../firebase/Config';
 import { onAuthStateChanged } from 'firebase/auth';
-
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
 
@@ -19,10 +18,29 @@ const AddRecipe = () => {
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeImage, setRecipeImage] = useState(null);
   const [recipes, setRecipes] = useState([]);
-  const [selectedTags, setSelectedTags] = useState(['', '', '', '']);
-  const [availableTags, setAvailableTags] = useState([
-    'Desserts', 'Main dishes', 'Easy', 'Under 30 minutes', 'Under 45 minutes', 'Pasta', 'Pizza'
-  ]);
+
+  // Uudet tagit
+  const [tags, setTags] = useState({
+    Difficulty: '',
+    Meal: '',
+    Diet: '',
+    Category: ''
+  });
+
+  const tagOptions = {
+    Difficulty: [
+      "Easy", "Fewer ingredients", "Under 15 minutes", "Under 30 minutes", "Under 45 minutes", "Under 1 Hour", "Medium-difficult", "Challenging"
+    ],
+    Meal: [
+      "Breakfast", "Desserts", "Drinks", "Lunch", "Sides", "Meal", "Brunch", "Appetizers", "Baking"
+    ],
+    Diet: [
+      "Vegan", "Fish", "Meat", "Dairy-Free", "Gluten-Free", "Pescetarian", "Dietary"
+    ],
+    Category: [
+      "Pasta", "Rice", "Salad", "Burgers", "Pizza", "Grilled foods", "Soups", "Breads and Rolls", "Cakes"
+    ]
+  };
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -62,7 +80,7 @@ const AddRecipe = () => {
         recipeIngredients,
         recipeInstructions,
         recipeImage,
-        tags: selectedTags.filter(tag => tag !== ''),  // Filter out empty strings
+        tags: Object.values(tags).filter(tag => tag !== ''),  // Filter out empty strings
         createdBy: user.uid
       };
   
@@ -75,7 +93,7 @@ const AddRecipe = () => {
       setRecipeIngredients('');
       setRecipeInstructions('');
       setRecipeImage(null);
-      setSelectedTags(['', '', '', '']);
+      setTags({ Difficulty: '', Meal: '', Diet: '', Category: '' });
     } catch (error) {
       console.error('Error saving recipe: ', error);
       Alert.alert('Error', 'Failed to save the recipe', [{ text: 'OK' }]);
@@ -95,14 +113,11 @@ const AddRecipe = () => {
     }
   };
 
-  const handleTagSelection = (itemValue, itemIndex) => {
-    const newSelectedTags = [...selectedTags];
-    if (newSelectedTags.includes(itemValue)) {
-      Alert.alert('Error', 'This tag has already been selected!', [{ text: 'OK' }]);
-      return;
-    }
-    newSelectedTags[itemIndex] = itemValue;
-    setSelectedTags(newSelectedTags);
+  const handleTagSelection = (itemValue, categoryName) => {
+    setTags(prevTags => ({
+      ...prevTags,
+      [categoryName]: itemValue
+    }));
   };
 
   return (
@@ -153,18 +168,18 @@ const AddRecipe = () => {
             onChangeText={setRecipeInstructions}
           />
 
-          <Text style={styles.text1}>Select tags:</Text>
-          {selectedTags.map((tag, index) => (
-            <View key={index} style={styles.pickerContainer}>
+          {Object.keys(tagOptions).map((category) => (
+            <View key={category} style={styles.input1}>
+              <Text style={styles.text1}>{category}:</Text>
               <Picker
-                selectedValue={tag}
-                onValueChange={(itemValue, itemIndex) => handleTagSelection(itemValue, index)}
+                selectedValue={tags[category]}
+                onValueChange={(itemValue) => handleTagSelection(itemValue, category)}
                 mode="dropdown"
                 style={styles.picker}
               >
-                {!tag && <Picker.Item label="Select a tag" value="" />}
-                {availableTags.map((availableTag, i) => (
-                  <Picker.Item key={i} label={availableTag} value={availableTag} />
+                <Picker.Item label={`Select ${category}`} value="" />
+                {tagOptions[category].map((option, index) => (
+                  <Picker.Item key={index} label={option} value={option} />
                 ))}
               </Picker>
             </View>
