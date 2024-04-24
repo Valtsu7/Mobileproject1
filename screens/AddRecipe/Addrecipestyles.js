@@ -76,6 +76,30 @@ export default StyleSheet.create({
   },
 
 
+  input2: {
+    
+    padding: 20,               // Padding around the contents
+    borderRadius: 10,          // Rounded corners
+    marginVertical: 10,        // Vertical space between each item
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Subtle shadow for depth
+    borderWidth: 1,            // Optional border
+    borderColor: '#ccc'        // Light gray border color
+  },
+  text7: {
+    fontSize: 16,              // Font size for the category label
+    color: '#333',             // Dark gray text color
+    fontWeight: 'bold',        // Bold font weight for the text
+    marginBottom: 10           // Margin below the label
+  },
+  picker: {
+    height: 50,                // Fixed height for picker
+    width: '100%',             // Full width
+    backgroundColor: 'white',  // White background for the dropdown
+    color: '#555',             // Darker text color for the items
+    borderRadius: 5            // Rounded corners for picker
+  }, 
+
+
   input: { //
     height: 40,
     width: 300,

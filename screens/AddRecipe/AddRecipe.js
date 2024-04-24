@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import styles from './Addrecipestyles';
 import { AntDesign } from '@expo/vector-icons';
-import { Picker } from '@react-native-picker/picker'; // Korjattu tuonti
+import { Picker } from '@react-native-picker/picker';
 import { auth } from '../../firebase/Config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
@@ -19,7 +19,8 @@ const AddRecipe = () => {
   const [recipeImage, setRecipeImage] = useState(null);
   const [recipes, setRecipes] = useState([]);
 
-  // Uudet tagit
+  const [showTags, setShowTags] = useState(false); // Uusi tila tagien näkyvyydelle
+
   const [tags, setTags] = useState({
     Difficulty: '',
     Meal: '',
@@ -80,14 +81,14 @@ const AddRecipe = () => {
         recipeIngredients,
         recipeInstructions,
         recipeImage,
-        tags: Object.values(tags).filter(tag => tag !== ''),  // Filter out empty strings
+        tags: Object.values(tags).filter(tag => tag !== ''),
         createdBy: user.uid
       };
-  
+
       await addDoc(collection(db, 'recipes'), newRecipe);
-  
+
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-  
+
       setRecipeName('');
       setRecipeDetails('');
       setRecipeIngredients('');
@@ -118,6 +119,10 @@ const AddRecipe = () => {
       ...prevTags,
       [categoryName]: itemValue
     }));
+  };
+
+  const toggleTagsVisibility = () => {
+    setShowTags(!showTags);
   };
 
   return (
@@ -168,9 +173,15 @@ const AddRecipe = () => {
             onChangeText={setRecipeInstructions}
           />
 
-          {Object.keys(tagOptions).map((category) => (
-            <View key={category} style={styles.input1}>
-              <Text style={styles.text1}>{category}:</Text>
+          {/* Toggle button for tags */}
+          <Pressable onPress={toggleTagsVisibility} style={styles.button}>
+            <Text style={styles.buttonText}>Toggle Tags</Text>
+          </Pressable>
+
+          {/* Conditional rendering of tag dropdowns */}
+          {showTags && Object.keys(tagOptions).map((category) => (
+            <View key={category} style={styles.input2}>
+              <Text style={styles.text7}>{category}:</Text>
               <Picker
                 selectedValue={tags[category]}
                 onValueChange={(itemValue) => handleTagSelection(itemValue, category)}
