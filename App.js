@@ -95,7 +95,7 @@ const ShoppingStack = () => {
 const Categorystack = () => {
   return (
     <Stack1.Navigator  >
-      <Stack1.Screen name=" " component={Home} />
+      <Stack1.Screen name=" " component={Home} options={{ headerShown: false }} />
       <Stack1.Screen name="Pasta" component={PastaScreen} />
       <Stack1.Screen name="Vegetarian" component={VegeScreen} />
       <Stack1.Screen name="Salad" component={SaladScreen} />
