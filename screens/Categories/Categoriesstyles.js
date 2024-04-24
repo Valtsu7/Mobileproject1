@@ -1,30 +1,31 @@
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
- 
     container: {
         flex: 1,
         padding: 10,
         backgroundColor: '#fff',
-      },
-      title: {
+    },
+    title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-      },
-      recipeCard: {
+    },
+    recipeCard: {
+        flex: 1, // Käytetään flexboxin ominaisuuksia
         marginBottom: 20,
+        marginHorizontal: 5, // Välimatka korttien välillä
         alignItems: 'center',
-      },
-      image: {
-        width: 300,
+        width: '50%' // Leveys asetetaan 50% jotta kaksi mahtuu rinnakkain
+    },
+    image: {
+        width: '100%', // Kuvan leveys vastaa kortin leveyttä
         height: 200,
         borderRadius: 10,
-      },
-      recipeName: {
+    },
+    recipeName: {
         marginTop: 10,
         fontSize: 18,
         fontWeight: 'bold',
-      }
-  
+    }
 });

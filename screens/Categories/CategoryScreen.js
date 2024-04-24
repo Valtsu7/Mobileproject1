@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/Config'; // Tarkista, että polku on oikea
+import { db } from '../../firebase/Config';
 import { useNavigation } from '@react-navigation/native';
 import styles from './Categoriesstyles';
 
@@ -11,17 +11,13 @@ const CategoryScreen = ({ category }) => {
 
   useEffect(() => {
     const fetchRecipes = async () => {
-      try {
-        const q = query(collection(db, "recipes"), where("tags", "array-contains", category));
-        const querySnapshot = await getDocs(q);
-        const fetchedRecipes = [];
-        querySnapshot.forEach((doc) => {
-          fetchedRecipes.push({ ...doc.data(), id: doc.id });
-        });
-        setRecipes(fetchedRecipes);
-      } catch (error) {
-        console.error(`Error fetching recipes for category ${category}:`, error);
-      }
+      const q = query(collection(db, "recipes"), where("tags", "array-contains", category));
+      const querySnapshot = await getDocs(q);
+      const fetchedRecipes = [];
+      querySnapshot.forEach((doc) => {
+        fetchedRecipes.push({ ...doc.data(), id: doc.id });
+      });
+      setRecipes(fetchedRecipes);
     };
 
     fetchRecipes();
@@ -30,14 +26,17 @@ const CategoryScreen = ({ category }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{category} Recipes</Text>
-      <ScrollView>
-        {recipes.map((recipe) => (
-          <TouchableOpacity key={recipe.id} style={styles.recipeCard} onPress={() => navigation.navigate('Recipe', { recipe })}>
-            {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={styles.image} />}
-            <Text style={styles.recipeName}>{recipe.recipeName}</Text>
+      <FlatList
+        data={recipes}
+        numColumns={2} // Määritä kaksi saraketta
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.recipeCard} onPress={() => navigation.navigate('Recipe', { recipe: item })}>
+            {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
+            <Text style={styles.recipeName}>{item.recipeName}</Text>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
+        )}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
