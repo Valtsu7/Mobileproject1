@@ -1,16 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import CategoryScreen from './CategoryScreen'; // Muista oikea polku
 
 const SaladScreen = () => {
-  return (
-    <View>
-      <Text >
-        Welcome to SALAD Recipes!
-      </Text>
-      
-     
-    </View>
-  );
+  return <CategoryScreen category="Salad" />;
 };
 
 export default SaladScreen;

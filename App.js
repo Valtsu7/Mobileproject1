@@ -29,6 +29,7 @@ import BreadandrollsScreen from './screens/Categories/Breadsandrolls';
 import GlutenFreeScreen from './screens/Categories/GlutenFree';
 import Search from './screens/Search/Search';
 import Recipe from './screens/Recipe/Recipe';
+import CategorySreen from './screens/Categories/CategoryScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator(); // Create a stack navigator
@@ -110,6 +111,7 @@ const Categorystack = () => {
       <Stack1.Screen name="Gluten-Free" component={GlutenFreeScreen} />
       <Stack1.Screen name="Search" component={Search} />
       <Stack1.Screen name="Recipe" component={Recipe} />
+      <Stack1.Screen name="Category" component={CategorySreen} />
     </Stack1.Navigator>
   );
 };

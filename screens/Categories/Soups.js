@@ -1,16 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import CategoryScreen from './CategoryScreen';
 
 const SoupsScreen = () => {
-  return (
-    <View>
-      <Text >
-        Welcome to Fish Recipes!
-      </Text>
-      
-     
-    </View>
-  );
+  return <CategoryScreen category="Soups" />;
 };
 
 export default SoupsScreen;

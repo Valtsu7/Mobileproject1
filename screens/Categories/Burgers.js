@@ -1,16 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import CategoryScreen from './CategoryScreen';
 
 const BurgersScreen = () => {
-  return (
-    <View>
-      <Text >
-        Welcome to Burger Recipes!
-      </Text>
-      
-     
-    </View>
-  );
+  return <CategoryScreen category="Burgers" />;
 };
 
 export default BurgersScreen;

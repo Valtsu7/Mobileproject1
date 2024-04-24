@@ -1,16 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import CategoryScreen from './CategoryScreen';
 
 const GlutenFreeScreen = () => {
-  return (
-    <View>
-      <Text >
-        Welcome to Gluten-free Recipes!
-      </Text>
-      
-     
-    </View>
-  );
+  return <CategoryScreen category="Gluten-Free" />;
 };
 
 export default GlutenFreeScreen;
