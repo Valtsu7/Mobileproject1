@@ -17,7 +17,7 @@ export default StyleSheet.create({
     fontSize: 20, 
     marginLeft: 80,
     marginRight: 80, 
-    marginTop: 30,
+    marginTop: -20,
     marginBottom: 20,
     borderWidth: 1,
     padding: 10,
@@ -51,6 +51,22 @@ export default StyleSheet.create({
     backgroundColor: '#FFAA00', 
     
   },
+
+
+  button3: {
+    fontSize: 20, 
+    marginLeft: 80,
+    marginRight: 80, 
+    marginTop: 10,
+    marginBottom: 0,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20, 
+    alignItems: 'center', 
+   
+    
+  },
+
 
   text: { //
     fontSize: 22, 
@@ -134,6 +150,29 @@ export default StyleSheet.create({
     
 
   },
+
+
+  tagtext: {
+
+     fontSize: 22, 
+     marginLeft: 80, 
+     marginRight: 60,
+     marginBottom: 0,
+     marginTop: 25,  
+     fontWeight: 'bold',
+  }, 
+
+  tagtext1: {
+
+    fontSize: 16, 
+    marginLeft: 25, 
+    marginRight: 25,
+    marginBottom: 15,
+    marginTop: 15, 
+     
+
+ }, 
+
  
   
 });
