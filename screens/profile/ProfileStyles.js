@@ -13,9 +13,15 @@ export default StyleSheet.create({
         width: 60, 
         height: 60, 
     },
+    box:{
+        border: 1,
+        backgroundColor: '#ECF7D9', 
+        padding: 10,
+        borderRadius: 10,
+    },
 
     header:{
-        marginLeft: 15,
+        marginRight: 234,
         marginTop: 10,
         flexDirection: "row"
     },
@@ -42,6 +48,9 @@ export default StyleSheet.create({
     },
     text: { //
         fontSize: 15,
+    },
+    scrollContainer: {
+        flexGrow: 1,
     },
     headerText: {
 

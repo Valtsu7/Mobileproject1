@@ -1,5 +1,3 @@
-// ProfilePicture.js
-
 import React, { useState } from 'react';
 import { View, Image, Button } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
