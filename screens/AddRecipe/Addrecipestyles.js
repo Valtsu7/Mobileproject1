@@ -4,6 +4,7 @@ export default StyleSheet.create({
  
   container: { //
     flex: 1,
+    backgroundColor: '#ECF7D9',
   },
 
  
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     fontSize: 20, 
     marginLeft: 80,
     marginRight: 80, 
-    marginTop: 30,
+    marginTop: -20,
     marginBottom: 20,
     borderWidth: 1,
     padding: 10,
@@ -51,6 +52,22 @@ export default StyleSheet.create({
     
   },
 
+
+  button3: {
+    fontSize: 20, 
+    marginLeft: 80,
+    marginRight: 80, 
+    marginTop: 10,
+    marginBottom: 0,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 20, 
+    alignItems: 'center', 
+   
+    
+  },
+
+
   text: { //
     fontSize: 22, 
     marginTop: 40,
@@ -73,6 +90,30 @@ export default StyleSheet.create({
     marginBottom: 40,
 
   },
+
+
+  input2: {
+    
+    padding: 20,               // Padding around the contents
+    borderRadius: 10,          // Rounded corners
+    marginVertical: 10,        // Vertical space between each item
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Subtle shadow for depth
+    borderWidth: 1,            // Optional border
+    borderColor: '#ccc'        // Light gray border color
+  },
+  text7: {
+    fontSize: 16,              // Font size for the category label
+    color: '#333',             // Dark gray text color
+    fontWeight: 'bold',        // Bold font weight for the text
+    marginBottom: 10           // Margin below the label
+  },
+  picker: {
+    height: 50,                // Fixed height for picker
+    width: '100%',             // Full width
+    backgroundColor: 'white',  // White background for the dropdown
+    color: '#555',             // Darker text color for the items
+    borderRadius: 5            // Rounded corners for picker
+  }, 
 
 
   input: { //
@@ -109,6 +150,29 @@ export default StyleSheet.create({
     
 
   },
+
+
+  tagtext: {
+
+     fontSize: 22, 
+     marginLeft: 80, 
+     marginRight: 60,
+     marginBottom: 0,
+     marginTop: 25,  
+     fontWeight: 'bold',
+  }, 
+
+  tagtext1: {
+
+    fontSize: 16, 
+    marginLeft: 25, 
+    marginRight: 25,
+    marginBottom: 15,
+    marginTop: 15, 
+     
+
+ }, 
+
  
   
 });

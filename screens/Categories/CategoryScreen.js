@@ -28,7 +28,7 @@ const CategoryScreen = ({ category }) => {
       <Text style={styles.title}>{category} Recipes</Text>
       <FlatList
         data={recipes}
-        numColumns={2} // Määritä kaksi saraketta
+        numColumns={2} 
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.recipeCard} onPress={() => navigation.navigate('Recipe', { recipe: item })}>
             {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}

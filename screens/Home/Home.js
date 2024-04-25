@@ -8,6 +8,10 @@ import Header from './Header';
 
 const Home = ({ navigation, route }) => {
   const [recipes, setRecipes] = useState([]);
+  const [quickRecipes, setQuickRecipes] = useState([]);
+  const [appetizerRecipes, setAppetizerRecipes] = useState([]);
+  const [dinnerRecipes, setDinnerRecipes] = useState([]);
+  const [dessertsRecipes, setDessertsRecipes] = useState([]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -15,6 +19,14 @@ const Home = ({ navigation, route }) => {
         const recipesSnapshot = await getDocs(collection(db, 'recipes'));
         const fetchedRecipes = recipesSnapshot.docs.map(doc => doc.data());
         setRecipes(fetchedRecipes);
+        const filteredQuickRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Under 30 minutes"));
+        setQuickRecipes(filteredQuickRecipes);
+        const filteredAppetizerRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Appetizers"));
+        setAppetizerRecipes(filteredAppetizerRecipes);
+        const filteredDinnerRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Dinner"));
+        setDinnerRecipes(filteredDinnerRecipes);
+        const filteredDessertsRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Desserts"));
+        setDessertsRecipes(filteredDessertsRecipes);
       } catch (error) {
         console.error('Error retrieving recipes: ', error);
       }
@@ -23,12 +35,10 @@ const Home = ({ navigation, route }) => {
     fetchRecipes();
   }, []);
 
-  // Funktio navigointiin kategorianäkymään
   const navigateToCategory = (categoryName) => {
     navigation.navigate(categoryName);
   };
 
-  // Funktio navigointiin reseptinäkymään
   const navigateToRecipe = (recipe) => {
     navigation.navigate('Recipe', { recipe });
   };
@@ -38,6 +48,15 @@ const Home = ({ navigation, route }) => {
       <View>
         {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
         <Text style={styles.recipeName}>{item.recipeName}</Text>
+      </View>
+    </Pressable>
+  );
+
+  const renderItemappe = ({ item }) => (
+    <Pressable style={styles.recipes1} onPress={() => navigateToRecipe(item)}>
+      <View>
+        {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.recipes1image} />}
+        <Text style={styles.recipes1text}>{item.recipeName}</Text>
       </View>
     </Pressable>
   );
@@ -58,7 +77,7 @@ const Home = ({ navigation, route }) => {
     require('./images/bredsandrolls.jpg'),
     require('./images/muffins.jpg'),
   ];
-  
+
   const renderCategoryItem = ({ item, index }) => (
     <Pressable style={styles.categories} onPress={() => navigateToCategory(item)}>
       <Image source={categoryImages[index]} style={styles.categoryImage} />
@@ -73,11 +92,10 @@ const Home = ({ navigation, route }) => {
         <Text style={styles.text}>
           Welcome to FlavorFriends!
         </Text>
-
+        
         <Text style={styles.text1}>
           Here are some categories for you!
         </Text>
-
         <FlatList
           data={categories}
           renderItem={renderCategoryItem}
@@ -89,7 +107,6 @@ const Home = ({ navigation, route }) => {
         <Text style={styles.text1}>
           Just added recipes:
         </Text>
-
         <FlatList
           data={recipes}
           renderItem={renderItem}
@@ -97,7 +114,57 @@ const Home = ({ navigation, route }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         />
-     
+        
+        <Text style={styles.text1}>
+          Quick Recipes (Under 30 Minutes):
+        </Text>
+        <FlatList
+          data={quickRecipes}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
+        <Text style={styles.text1}>
+          Appetizer Recipes:
+        </Text>
+        <FlatList
+
+          
+          data={appetizerRecipes}
+          renderItem={renderItemappe}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
+        <Text style={styles.text1}>
+          Dinner Recipes:
+        </Text>
+        <FlatList
+
+          
+          data={dinnerRecipes}
+          renderItem={renderItemappe}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
+        <Text style={styles.text1}>
+          Dessert Recipes:
+        </Text>
+        <FlatList
+
+          
+          data={dessertsRecipes}
+          renderItem={renderItemappe}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+
       </ScrollView>
     </SafeAreaView>
   );

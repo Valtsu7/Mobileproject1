@@ -4,12 +4,14 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        backgroundColor: '#fff',
+        backgroundColor: '#ECF7D9',
+        
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        marginLeft: 60,
     },
     recipeCard: {
         flex: 1, // Käytetään flexboxin ominaisuuksia

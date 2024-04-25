@@ -4,6 +4,7 @@ export default StyleSheet.create({
  
   container: {  //
     flex: 1,
+    backgroundColor: '#ECF7D9',
   },
 
   
@@ -116,8 +117,9 @@ export default StyleSheet.create({
  
   recipeName: {
     position: "absolute" ,
-    top: 250, 
-    left: 20, 
+    top: 270, 
+    left: 14, 
+    right: 0, 
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
@@ -133,7 +135,6 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
  
-  
 
  }, 
 
@@ -152,6 +153,34 @@ export default StyleSheet.create({
 
 
  }, 
+
+ recipes1: {
+  width: 200,  // kiinteä leveys kaikille elementeille
+  minHeight: 200,  // minimikorkeus, joka voi kasvaa tarpeen mukaan
+  flexDirection: 'column',
+  padding: 10,
+  margin: 5,
+  backgroundColor: '#fff',
+  borderRadius: 8,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.1,
+  shadowRadius: 2,
+  elevation: 3,
+},
+recipes1image: {
+  width: '100%',
+  height: 150,  // kiinteä korkeus kuvalle
+  borderRadius: 8,
+},
+recipes1text: {
+  marginTop: 10,
+  fontSize: 16,  // pienempi fonttikoko voi auttaa mahtuvuudessa
+  fontWeight: 'bold',
+  color: '#333',
+  flexWrap: 'wrap',  // sallii tekstin mennä useammalle riville
+  textAlign: 'center', 
+},
 
 
 });
