@@ -53,10 +53,10 @@ const Home = ({ navigation, route }) => {
   );
 
   const renderItemappe = ({ item }) => (
-    <Pressable style={styles.categories} onPress={() => navigateToRecipe(item)}>
+    <Pressable style={styles.recipes1} onPress={() => navigateToRecipe(item)}>
       <View>
-        {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.categoryImage} />}
-        <Text style={styles.text2}>{item.recipeName}</Text>
+        {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.recipes1image} />}
+        <Text style={styles.recipes1text}>{item.recipeName}</Text>
       </View>
     </Pressable>
   );
