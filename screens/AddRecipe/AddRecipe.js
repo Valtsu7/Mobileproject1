@@ -9,6 +9,7 @@ import { auth } from '../../firebase/Config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const AddRecipe = () => {
   const [user, setUser] = useState(null);
@@ -17,16 +18,14 @@ const AddRecipe = () => {
   const [recipeIngredients, setRecipeIngredients] = useState('');
   const [recipeInstructions, setRecipeInstructions] = useState('');
   const [recipeImage, setRecipeImage] = useState(null);
-  const [recipes, setRecipes] = useState([]);
-
-  const [showTags, setShowTags] = useState(false); // Uusi tila tagien näkyvyydelle
-
+  const [showTags, setShowTags] = useState(false);
   const [tags, setTags] = useState({
     Difficulty: '',
     Meal: '',
     Diet: '',
     Category: ''
   });
+  const storage = getStorage();
 
   const tagOptions = {
     Difficulty: [
@@ -44,20 +43,6 @@ const AddRecipe = () => {
   };
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const savedRecipes = await AsyncStorage.getItem('recipes');
-        if (savedRecipes) {
-          const parsedRecipes = JSON.parse(savedRecipes);
-          setRecipes(parsedRecipes);
-        }
-      } catch (error) {
-        console.error('Error loading recipes: ', error);
-      }
-    };
-
-    fetchRecipes();
-
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
@@ -74,13 +59,25 @@ const AddRecipe = () => {
   }
 
   const saveRecipe = async () => {
+    if (!recipeImage) {
+      Alert.alert('Error', 'Please pick an image for the recipe', [{ text: 'OK' }]);
+      return;
+    }
+
     try {
+      const response = await fetch(recipeImage);
+      const blob = await response.blob();
+
+      const imageRef = ref(storage, `recipeImages/${recipeName}`);
+      await uploadBytes(imageRef, blob);
+      const imageUrl = await getDownloadURL(imageRef);
+
       const newRecipe = {
         recipeName,
         recipeDetails,
         recipeIngredients,
         recipeInstructions,
-        recipeImage,
+        recipeImage: imageUrl,
         tags: Object.values(tags).filter(tag => tag !== ''),
         createdBy: user.uid
       };
@@ -88,7 +85,6 @@ const AddRecipe = () => {
       await addDoc(collection(db, 'recipes'), newRecipe);
 
       Alert.alert('Recipe saved!', null, [{ text: 'OK' }]);
-
       setRecipeName('');
       setRecipeDetails('');
       setRecipeIngredients('');
@@ -103,13 +99,13 @@ const AddRecipe = () => {
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      alert('Permission to access the photo gallery is required!');
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
       return;
     }
 
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
-    if (!pickerResult.cancelled) {
+    if (!pickerResult.cancelled && pickerResult.assets && pickerResult.assets.length > 0) {
       setRecipeImage(pickerResult.assets[0].uri);
     }
   };
@@ -129,7 +125,6 @@ const AddRecipe = () => {
     <View style={styles.container}>
       <ScrollView>
         <Text style={styles.text}>Add your own recipe</Text>
-
         <Pressable onPress={pickImage} style={styles.button2}>
           <View>
             <Text style={styles.buttonText}>Pick Image</Text>
@@ -173,16 +168,10 @@ const AddRecipe = () => {
             onChangeText={setRecipeInstructions}
           />
 
-
-              <Text style={styles.tagtext}>Choose your tags! </Text>
-              <Text style={styles.tagtext1}>Selecting tags helps increase the visibility of your recipe, which in turn allows more people to see it!</Text>
-         
           <Pressable onPress={toggleTagsVisibility} style={styles.button3}>
             <Text style={styles.buttonText}>Select tags</Text>
           </Pressable>
 
-          
-          
           {showTags && Object.keys(tagOptions).map((category) => (
             <View key={category} style={styles.input2}>
               <Text style={styles.text7}>{category}:</Text>
@@ -190,8 +179,7 @@ const AddRecipe = () => {
                 selectedValue={tags[category]}
                 onValueChange={(itemValue) => handleTagSelection(itemValue, category)}
                 mode="dropdown"
-                style={styles.picker}
-              >
+                style={styles.picker}>
                 <Picker.Item label={`Select ${category}`} value="" />
                 {tagOptions[category].map((option, index) => (
                   <Picker.Item key={index} label={option} value={option} />
