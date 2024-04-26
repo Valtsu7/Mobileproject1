@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Pressable, Alert, Button } from 'react-native';
+import { View, Text, TextInput, Pressable, Alert, Button, Image } from 'react-native';
 import { logout, signIn, resetPassword } from '../../components/Auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/Config';
@@ -66,6 +66,7 @@ export default function Login({ navigation }) {
 
   if (isLoggedIn) {
     return(
+      
       
       
       <View style={styles.container}>
@@ -141,7 +142,7 @@ export default function Login({ navigation }) {
         <Pressable style={styles.buttonStyle}>
           <Text 
             style={styles.link}
-            onPress={handlePressForgotPw}>Forgot password</Text>
+            onPress={handlePressForgotPw}>Forgot password?</Text>
         </Pressable>
         { showForgotPw &&
           <>
