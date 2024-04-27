@@ -48,49 +48,17 @@ const EditShoppingListScreen = ({ route, navigation }) => {
         });
       }
       await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedShoppingLists));
+      Alert.alert('Success', 'Shopping list updated successfully.');
     } catch (error) {
       console.error('Error updating shopping list:', error);
-      throw error;
+      Alert.alert('Error', 'Failed to update shopping list.');
     }
   };
+
   const addItem = () => {
-    setItems([...items, '']);
+    setEditedItems(prevItems => prevItems + '\n');
   };
 
-  const CreateShoppingListScreen = () => {
-    const [shoppingListName, setShoppingListName] = useState('');
-    const [items, setItems] = useState(['']); // Initial state with one empty item
-  
-  const saveShoppingList = async () => {
-    try {
-      // Filter out empty items
-      const filteredItems = items.filter(item => item.trim() !== '');
-
-      // Create shopping list object
-      const newShoppingList = {
-        name: shoppingListName,
-        items: filteredItems
-      };
-       // Fetch existing shopping lists from AsyncStorage
-       const existingLists = await AsyncStorage.getItem('savedShoppingLists');
-       const parsedLists = existingLists ? JSON.parse(existingLists) : [];
- 
-       // Add the new shopping list to the existing lists
-       const updatedLists = [...parsedLists, newShoppingList];
- 
-       // Save the updated lists back to AsyncStorage
-       await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(updatedLists));
- 
-       // Temporary logging to verify data
-       const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
-       console.log('Saved shopping lists:', savedShoppingLists);
- 
-       Alert.alert('Success', 'Shopping list saved successfully.');
-     } catch (error) {
-       console.error('Error saving shopping list:', error);
-       Alert.alert('Error', 'Failed to save shopping list.');
-     }
-   };
   return (
     <View style={style.shoppingListContainer}>
       <Text style={style.text}>Here you can edit your shopping list:</Text>
@@ -101,23 +69,24 @@ const EditShoppingListScreen = ({ route, navigation }) => {
         placeholder="Shopping List Name"
       />
       <ScrollView>
-      {editedItems.split('\n').map((item, index) => (
-        <TextInput
-          key={index}
-          style={style.editList}
-          value={item}
-          onChangeText={(text) => {
-            const items = editedItems.split('\n');
-            items[index] = text;
-            setEditedItems(items.join('\n'));
-          }}
-          placeholder={`Item ${index + 1}`}
-        />
-      ))}</ScrollView>
+        {editedItems.split('\n').map((item, index) => (
+          <TextInput
+            key={index}
+            style={style.editList}
+            value={item}
+            onChangeText={(text) => {
+              const items = editedItems.split('\n');
+              items[index] = text;
+              setEditedItems(items.join('\n'));
+            }}
+            placeholder={`Item ${index + 1}`}
+          />
+        ))}
+      </ScrollView>
       <Button title="Add Item" onPress={addItem} />
-      <Button title="Save Shopping List" onPress={saveShoppingList} />
+      <Button title="Save Shopping List" onPress={() => updateShoppingList({ name: editedName, items: editedItems.split('\n').filter(item => item.trim() !== '') })} />
     </View>
   );
-};}
+};
 
 export default EditShoppingListScreen;

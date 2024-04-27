@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onAuthStateChanged } from 'firebase/auth'; // Import onAuthStateChanged
+import { auth } from '../../firebase/Config'; // Import the auth instance from Config.js
 import style from './ShoppingListStyles';
-import { auth } from '../../firebase/Config';
-import { onAuthStateChanged } from 'firebase/auth';
 
 const ShoppingScreen = ({ navigation }) => {
-  const [shoppingLists, setShoppingLists] = useState([]);
   const [user, setUser] = useState(null);
+  const [shoppingLists, setShoppingLists] = useState([]);
 
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     if (currentUser) {
+  //       fetchShoppingLists(currentUser.uid);
+  //     } else {
+  //       setShoppingLists([]);
+  //     }
+  //   });
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
       if (currentUser) {
-        fetchShoppingLists(currentUser.uid);
+        handleRefresh(); // Automatically refresh shopping lists when component mounts
       } else {
         setShoppingLists([]);
       }
@@ -23,65 +31,57 @@ const ShoppingScreen = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
-  const saveShoppingList = async (shoppingList) => {
-    try {
-      const existingShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
-      const parsedLists = existingShoppingLists ? JSON.parse(existingShoppingLists) : [];
-      
-      shoppingList.createdBy = auth.currentUser.uid;
-
-      parsedLists.push(shoppingList);
-
-      await AsyncStorage.setItem('savedShoppingLists', JSON.stringify(parsedLists));
-    } catch (error) {
-      console.error('Error saving shopping list:', error);
+  // Function to fetch shopping lists from AsyncStorage
+const fetchShoppingLists = async (userId) => {
+  try {
+    const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
+    if (savedShoppingLists) {
+      const allShoppingLists = JSON.parse(savedShoppingLists).reverse(); // Reverse the order
+      const userShoppingLists = allShoppingLists.filter(list => list.userId === userId);
+      setShoppingLists(userShoppingLists);
     }
+  } catch (error) {
+    console.error('Error fetching shopping lists:', error);
+  }
+};
+
+
+  // Function to handle the press of the "Create new shopping list" button
+  const handleCreateNewShoppingList = () => {
+    navigation.navigate('Create Shopping List');
   };
 
-  const fetchShoppingLists = async (userId) => {
+  // const handleRefresh = async () => {
+  //   fetchShoppingLists(user.uid); // Fetch shopping lists again
+  // };
+  const handleRefresh = async () => {
     try {
       const savedShoppingLists = await AsyncStorage.getItem('savedShoppingLists');
       if (savedShoppingLists) {
-        const parsedLists = JSON.parse(savedShoppingLists);
-        const filteredLists = parsedLists.filter(list => list.createdBy === userId);
-        setShoppingLists(filteredLists.reverse());
+        const allShoppingLists = JSON.parse(savedShoppingLists).reverse();
+        const userShoppingLists = allShoppingLists.filter(list => list.userId === user.uid);
+        setShoppingLists(userShoppingLists);
       }
     } catch (error) {
       console.error('Error fetching shopping lists:', error);
     }
   };
 
-  const handleCreateNewShoppingList = () => {
-    if (!user) {
-      alert('You must be logged in to create a new shopping list.');
-      return;
-    }
-    navigation.navigate('Create Shopping List');
-  };
-
-  const handleRefresh = () => {
-    if (user) {
-      fetchShoppingLists(user.uid);
-    }
-  };
-
+  // Function to handle the navigation to the details screen for a shopping list
   const handleShoppingListPress = (shoppingList) => {
     navigation.navigate('Selected list', { shoppingList });
   };
 
   return (
     <View style={style.shoppingListContainer}>
-      {user ? (
-        <TouchableOpacity onPress={handleCreateNewShoppingList}>
-          <Text style={style.button}>Create new shopping list</Text>
-        </TouchableOpacity>
-      ) : (
-        <Text style={style.text}>You must be logged in to make shopping lists</Text>
-      )}
-
-      {user && (
+      { user ? (
         <>
-          <Text style={style.text}>Your shopping lists:</Text>
+          <TouchableOpacity onPress={handleCreateNewShoppingList}>
+            <Text style={style.button}>Create new shopping list</Text>
+          </TouchableOpacity>
+
+          {/* Show existing shopping lists */}
+          <Text style={style.text}>Previously made shopping lists:</Text>
           <FlatList
             data={shoppingLists}
             renderItem={({ item }) => (
@@ -94,8 +94,11 @@ const ShoppingScreen = ({ navigation }) => {
             )}
             keyExtractor={(item, index) => index.toString()}
           />
+
           <Button title="Refresh" onPress={handleRefresh} />
         </>
+      ) : (
+        <Text style={style.text}>Please log in to view your shopping lists.</Text>
       )}
     </View>
   );
