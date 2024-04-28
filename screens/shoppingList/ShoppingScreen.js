@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, Button } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../firebase/Config';
@@ -63,6 +63,13 @@ const ShoppingScreen = ({ navigation }) => {
     <View style={style.shoppingListContainer}>
       {user ? (
         <>
+          <View style={style.logoContainer}>
+          {/* Logo */}
+            <Image
+              source={require('../../assets/flavorlogo2.png')}
+              style={style.logo}
+            />
+        </View>
           <TouchableOpacity onPress={handleCreateNewShoppingList}>
             <Text style={style.button}>Create new shopping list</Text>
           </TouchableOpacity>

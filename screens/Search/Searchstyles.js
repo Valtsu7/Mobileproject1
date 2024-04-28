@@ -61,9 +61,7 @@ export default StyleSheet.create({
 
 
   view: {
-
-   
-
+  
   }, 
 
   text1: {
@@ -82,5 +80,8 @@ export default StyleSheet.create({
     
 
   }, 
-  
+  recipeContainer: {
+    marginTop: 20,
+    
+  }
 });

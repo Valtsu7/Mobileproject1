@@ -1,6 +1,6 @@
 // ShoppingListDetailsScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity, ScrollView, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from './ShoppingListStyles';
 import CustomCheckbox from './CustomCheckbox'
@@ -73,6 +73,13 @@ const ShoppingListDetailsScreen = ({ route, navigation }) => {
 
   return (
     <View style={style.shoppingListContainer}>
+      <View style={style.logoContainer}>
+        {/* Logo */}
+        <Image
+          source={require('../../assets/flavorlogo2.png')}
+          style={style.logo}
+        />
+       </View>
       <Text style={style.title}>{shoppingList.name}</Text>
       <ScrollView>
       {shoppingList.items.map((item, index) => (

@@ -6,6 +6,7 @@ import { db } from '../../firebase/Config'; // Tarkista tämä importti polkuun,
 import styles from './Homestyles';
 import Header from './Header';
 
+
 const Home = ({ navigation, route }) => {
   const [recipes, setRecipes] = useState([]);
   const [quickRecipes, setQuickRecipes] = useState([]);

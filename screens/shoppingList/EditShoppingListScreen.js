@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, Alert, ScrollView, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from './ShoppingListStyles';
 import { useFocusEffect } from '@react-navigation/native';
@@ -61,6 +61,13 @@ const EditShoppingListScreen = ({ route, navigation }) => {
 
   return (
     <View style={style.shoppingListContainer}>
+      <View style={style.logoContainer}>
+        {/* Logo */}
+        <Image
+          source={require('../../assets/flavorlogo2.png')}
+          style={style.logo}
+        />
+      </View>
       <Text style={style.text}>Here you can edit your shopping list:</Text>
       <TextInput
         style={style.title1}
