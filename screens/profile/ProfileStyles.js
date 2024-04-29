@@ -18,21 +18,31 @@ export default StyleSheet.create({
         backgroundColor: '#ECF7D9', 
         padding: 10,
         borderRadius: 10,
+        marginTop: 20,
+        marginBottom: 20,
     },
 
     header:{
-        marginRight: 234,
+        marginRight: 250,
         marginTop: 10,
         flexDirection: "row"
     },
     textInput: {
-        width: '80%',
         height: 40,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 10,
         paddingLeft: 10,
+    },
+    textInput2:{
+        height: 30,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        marginBottom: 10,
+        paddingLeft: 10,
+        marginRight: 200,
     },
     buttonStyle: {
         marginTop: 5,
@@ -46,13 +56,15 @@ export default StyleSheet.create({
         marginRight: 180,
         fontSize: 15,
     },
-    text: { //
+    text: { 
         fontSize: 15,
+        paddingBottom: 7
     },
     scrollContainer: {
         flexGrow: 1,
     },
-    headerText: {
-
+    accountText: {
+        fontSize: 17,
+        paddingBottom: 6,
     }
 })
