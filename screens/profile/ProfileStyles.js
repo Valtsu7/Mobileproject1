@@ -57,7 +57,7 @@ export default StyleSheet.create({
         fontSize: 15,
     },
     text: { 
-        fontSize: 15,
+        fontSize: 17,
         paddingBottom: 7
     },
     scrollContainer: {
