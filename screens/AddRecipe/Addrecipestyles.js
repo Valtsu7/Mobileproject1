@@ -23,7 +23,7 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
-    backgroundColor: '#FFAA00', 
+    backgroundColor: '#AFF7AE', 
     
   },
 
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
-    backgroundColor: '#FFAA00', 
+    backgroundColor: '#AFF7AE', 
     
   },
 
@@ -69,9 +69,10 @@ export default StyleSheet.create({
 
 
   text: { //
-    fontSize: 22, 
+    fontSize: 30, 
     marginTop: 40,
-    marginLeft: 65,
+    textAlign: 'center', 
+    fontWeight: 'bold', 
    
   }, 
 

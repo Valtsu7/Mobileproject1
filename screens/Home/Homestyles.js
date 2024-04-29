@@ -99,7 +99,7 @@ export default StyleSheet.create({
   }, 
 
   recipeContainer: {
-    backgroundColor: '#F97A50',
+    backgroundColor: '#AFF7AE',
     padding: 10,
     margin: 5,
     marginLeft: 20, 
@@ -128,7 +128,7 @@ export default StyleSheet.create({
   
  categories: {
 
-    backgroundColor: '#F97A50',
+    backgroundColor: '#AFF7AE',
     padding: 10,
     margin: 5,
     marginLeft: 10, 
@@ -167,11 +167,14 @@ export default StyleSheet.create({
   shadowOpacity: 0.1,
   shadowRadius: 2,
   elevation: 3,
+  marginLeft: 20, 
+  marginBottom: 60, 
 },
 recipes1image: {
   width: '100%',
   height: 150,  // kiinteä korkeus kuvalle
   borderRadius: 8,
+  
 },
 recipes1text: {
   marginTop: 10,
@@ -180,7 +183,115 @@ recipes1text: {
   color: '#333',
   flexWrap: 'wrap',  // sallii tekstin mennä useammalle riville
   textAlign: 'center', 
+ 
+  
 },
+
+
+food: {
+
+  width: 305, 
+  height: 300, 
+  borderRadius: 8,
+  marginLeft: 39, 
+
+}, 
+
+
+view: {
+ 
+  backgroundColor: '#AFF7AE', 
+  marginTop: 60, 
+ marginBottom: 60, 
+
+}, 
+
+
+text77: {
+
+   marginTop: 40, 
+   fontSize: 37, 
+   fontWeight: 'bold',
+   marginBottom: 40,
+   paddingHorizontal: 10, 
+   textAlign: 'center', 
+  
+},
+
+text78: {
+
+    margintop: 30, 
+    marginBottom: 40, 
+    textAlign: 'center', 
+    fontSize: 26, 
+    color: '#666666', 
+
+},
+
+
+text88: { //
+  fontSize: 20, 
+  fontWeight: 'bold',
+  marginLeft: 30, 
+  marginTop: 50, 
+  marginBottom: 20, 
+  
+}, 
+
+
+text8: { //
+  fontSize: 20, 
+  fontWeight: 'bold',
+  marginLeft: 30, 
+  
+  marginBottom: 20, 
+  
+}, 
+
+text9: { //
+  fontSize: 25, 
+  fontWeight: 'bold',
+  color: '#666666',
+  marginTop: 10, 
+  marginBottom: 20, 
+  textAlign: 'center',
+}, 
+
+
+recipeContainer1: {
+  backgroundColor: '#AFF7AE',
+  padding: 10,
+  margin: 5,
+  marginLeft: 20, 
+  borderRadius: 10,
+  alignItems: 'center',
+  marginTop: 30, 
+  marginBottom: 100, 
+},
+
+image1: {
+
+   width: 250, 
+   height: 350, 
+   marginLeft: 0, 
+   borderRadius: 20, 
+},
+
+recipeName1: {
+  position: "absolute" ,
+  top: 270, 
+  left: 14, 
+  right: 0, 
+  textAlign: 'center',
+  fontWeight: 'bold',
+  color: 'white',
+  fontSize: 30, 
+},
+
+
+
+
+
 
 
 });
