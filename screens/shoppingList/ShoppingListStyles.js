@@ -20,9 +20,11 @@ export default StyleSheet.create({
     padding: 15,
     fontSize: 16,
     backgroundColor: '#AFF7AE',
-    borderWidth: 1.7,
-    borderRadius: 8,
+    borderWidth: 1,
+    borderRadius: 3,
     fontWeight: 'bold',
+    width: 350,
+    textAlign: 'center'
   },
  
   header: {
@@ -109,9 +111,8 @@ export default StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     margin: 20,
-    borderWidth: 1.8,
     padding: 15,
-    minWidth: 350,
+    width: 450,
     borderRadius: 10,
     backgroundColor: '#AFF7AE',
     fontSize: 22,
@@ -120,7 +121,6 @@ export default StyleSheet.create({
   title1: {
     fontSize: 15,
     textAlign: 'center',
-    
     padding: 15,
     minWidth: 410,
     borderRadius: 10,
@@ -163,12 +163,14 @@ export default StyleSheet.create({
     backgroundColor: '#AFF7AE'
   },
   listName:{
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 5,
-    width: 250,
-    padding: 10,
-    fontWeight: 'bold',
-    backgroundColor: '#AFF7AE'
+    width: 400,
+    height: 80,
+    padding: 25,
+    backgroundColor: '#AFF7AE',
+    // textAlign: 'center',
+    fontSize: 20
   },
   
   buttons: {
@@ -182,7 +184,7 @@ export default StyleSheet.create({
   },
   itemCount: {
     textAlign: 'right',
-    marginBottom: 50,
+    marginBottom: 30,
     fontStyle: 'italic'
   },
   previous: {
@@ -192,7 +194,7 @@ export default StyleSheet.create({
   item: {
     borderWidth: 1,
     padding: 10,
-    minWidth: 200,
+    width: 310,
     minHeight: 20,
     margin: 10,
     fontStyle: 'italic',

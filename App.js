@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack"
+import { db, auth } from './firebase/Config';
 import Home from './screens/Home/Home';
 import Login from './screens/login/Login';
 import Profile from './screens/profile/Profile';
@@ -17,7 +18,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import PastaScreen from './screens/Categories/Pasta';
 import SaladScreen from './screens/Categories/Salad';
 import FishScreen from './screens/Categories/Fish';
-import { db, auth } from './firebase/Config';
 import VegeScreen from './screens/Categories/Vegetarian';
 import MeatScreen from './screens/Categories/Meat';
 import BurgersScreen from './screens/Categories/Burgers';

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import style from './ShoppingListStyles';
-import CustomCheckbox from './CustomCheckBox';
+import CustomCheckbox from './CustomCheckbox'
 
 const ShoppingListDetailsScreen = ({ route, navigation }) => {
   const { shoppingList } = route.params;

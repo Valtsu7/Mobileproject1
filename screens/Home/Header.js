@@ -11,6 +11,10 @@ export default function Header() {
     navigation.navigate('Search'); // Navigoidaan Search.js-sivulle
   };
 
+  const onPressProfile = () => {
+    navigation.navigate('Profile'); // Navigoidaan Profile.js-sivulle
+  };
+
   return (
     <View style={styles.header}>
       
@@ -35,12 +39,14 @@ export default function Header() {
       </Pressable>
       
        {/* Profiilikuva */}
-       <View style={styles.profileContainer}>
+       <Pressable style={styles.profileContainer} onPress={onPressProfile}>
         {/* Valkoinen pallo taustalle */}
         <View style={styles.profileBackground}></View>
         {/* Profiilikuvake */}
         <AntDesign name="user" size={31} color="black" />
+        </Pressable>
       </View>
-    </View>
+      
+    
   );
 }
