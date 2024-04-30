@@ -85,7 +85,7 @@ export default StyleSheet.create({
   text: { //
     fontSize: 22, 
     marginLeft: 40,
-    
+    fontFamily: 'Raleway-Italic', 
    
   }, 
 
@@ -96,6 +96,8 @@ export default StyleSheet.create({
     marginTop: 30, 
     marginBottom: 20, 
     textAlign: 'center',
+   
+    
   }, 
 
   recipeContainer: {
@@ -124,6 +126,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     fontSize: 30, 
+   
   },
   
  categories: {
@@ -211,10 +214,10 @@ text77: {
 
    marginTop: 40, 
    fontSize: 37, 
-   fontWeight: 'bold',
    marginBottom: 40,
    paddingHorizontal: 10, 
    textAlign: 'center', 
+   fontFamily: 'Raleway-Italic', 
   
 },
 
@@ -225,6 +228,7 @@ text78: {
     textAlign: 'center', 
     fontSize: 26, 
     color: '#666666', 
+    fontFamily: 'Raleway-Italic', 
 
 },
 
@@ -250,11 +254,12 @@ text8: { //
 
 text9: { //
   fontSize: 25, 
-  fontWeight: 'bold',
+  
   color: '#666666',
   marginTop: 10, 
   marginBottom: 20, 
   textAlign: 'center',
+  fontFamily: 'Raleway-Italic', 
 }, 
 
 

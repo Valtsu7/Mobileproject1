@@ -5,6 +5,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/Config'; // Tarkista tämä importti polkuun, jossa db-objekti sijaitsee
 import styles from './Homestyles';
 import Header from './Header';
+import * as Font from 'expo-font';  // Tuo Font moduuli
 
 const Home = ({ navigation, route }) => {
   const [recipes, setRecipes] = useState([]);
@@ -14,7 +15,21 @@ const Home = ({ navigation, route }) => {
   const [dessertsRecipes, setDessertsRecipes] = useState([]);
   const [challengingRecipes, setChallengingRecipes] = useState([]);
 
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
   useEffect(() => {
+
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Raleway-Italic': require('../../assets/Raleway-Italic.ttf'),  // Osoita fonttitiedostoon
+      });
+      setFontsLoaded(true);
+    }
+
+    loadFonts();
+
+
+
     const fetchRecipes = async () => {
       try {
         const recipesSnapshot = await getDocs(collection(db, 'recipes'));
@@ -34,9 +49,16 @@ const Home = ({ navigation, route }) => {
         console.error('Error retrieving recipes: ', error);
       }
     };
+    
+    
 
     fetchRecipes();
   }, []);
+
+  if (!fontsLoaded) {
+    return <View><Text>Loading fonts...</Text></View>;  // Näyttää lataustekstin, kunnes fontit on ladattu
+  }
+
 
   const navigateToCategory = (categoryName) => {
     navigation.navigate(categoryName);
@@ -98,6 +120,11 @@ const Home = ({ navigation, route }) => {
       <Text style={styles.text2}>{item}</Text>
     </Pressable>
   );
+
+
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>

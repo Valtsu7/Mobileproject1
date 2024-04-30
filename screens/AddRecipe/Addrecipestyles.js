@@ -34,6 +34,7 @@ export default StyleSheet.create({
     marginTop: 0,
     marginBottom: 50,
     alignItems: 'center', 
+   
     
   },
 
@@ -64,6 +65,7 @@ export default StyleSheet.create({
     borderRadius: 20, 
     alignItems: 'center', 
    
+   
     
   },
 
@@ -82,6 +84,7 @@ export default StyleSheet.create({
     marginRight: 60,
     marginBottom: 15,
     marginTop: 15,  
+    fontFamily: 'Raleway-Italic',
 
   }, 
 
