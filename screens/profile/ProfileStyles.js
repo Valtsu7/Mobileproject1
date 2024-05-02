@@ -69,10 +69,57 @@ export default StyleSheet.create({
     }, 
 
     recipeImage: {
-        width: 100,
-        height: 100,
-        resizeMode: 'cover',
-        margin: 10,
+        width: 200,
+        height: 200,
+        borderRadius: 8,
+        marginLeft: 77, 
+        marginTop: 30, 
+        marginBottom: 30, 
+        
       }, 
+
+      recipeName: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginLeft: 70, 
+        marginTop: 20, 
+        
+      },
+      
+      text: {
+        fontSize: 20,
+        marginBottom: 5,
+        marginLeft: 20, 
+      },
+ 
+      text1: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 30,
+        marginTop: 30, 
+        
+      },
+
+      text2: {
+        fontSize: 20,
+        marginLeft: 40, 
+        marginRight: 40, 
+        marginTop: 30, 
+      },
+
+
+      recipeItem: {
+        
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        borderLeftWidth: 2, // Lisää pystyviiva vasemmalle
+        borderRightWidth: 2, // Lisää pystyviiva oikealle
+        borderLeftColor: 'black', // Vaihda viivan väriä tästä
+        borderRightColor: 'black', // Vaihda viivan väriä tästä
+        padding: 10,
+      },
+      
+
       
 })

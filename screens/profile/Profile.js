@@ -10,10 +10,7 @@ import styles from '../profile/ProfileStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-
-
-const Profile = ({navigation}) => {
-
+const Profile = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -21,6 +18,7 @@ const Profile = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmDelete, setConfirmDelete] = useState('');
   const [recipes, setRecipes] = useState([]);
+  const [showRecipes, setShowRecipes] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -60,7 +58,7 @@ const Profile = ({navigation}) => {
       console.log("Update failed: " + error.message);
       Alert.alert("Update failed: " + error.message);
     });
-  }
+  };
 
   const handlePressLogout = async () => {
     logout();
@@ -94,6 +92,10 @@ const Profile = ({navigation}) => {
     }
   };
 
+  const toggleRecipesDisplay = () => {
+    setShowRecipes(!showRecipes);
+  };
+
   if (!isLoggedIn) {
     return (
       <View style={styles.container}>
@@ -113,7 +115,7 @@ const Profile = ({navigation}) => {
             onPress={() => navigation.navigate('Register')} />
         </Pressable>
       </View>
-    )
+    );
   } else {
     return (
       <GestureHandlerRootView>
@@ -194,25 +196,34 @@ const Profile = ({navigation}) => {
               </Text>
             </View>
 
-            <View style={styles.box}>
-              <Text style={styles.profileSubheader}>Your Recipes:</Text>
-              {recipes.map((recipe) => (
-                <View key={recipe.id} style={styles.recipeItem}>
-                  <Text>{recipe.recipeName}</Text>
-                  <Image
-                    source={{ uri: recipe.recipeImage }}
-                    style={styles.recipeImage}
-                  />
-                </View>
-              ))}
-            </View>
-
             <View>
               <Text>
                 <Button
                 title='Logout'
                 onPress={() => handlePressLogout()}></Button>
               </Text>
+            </View>
+
+            <View style={styles.box}>
+              <Text style={styles.profileSubheader}>Your Recipes:</Text>
+              <Button
+                title={showRecipes ? "Hide Recipes" : "Show Recipes"}
+                onPress={toggleRecipesDisplay}
+              />
+              {showRecipes && recipes.map((recipe) => (
+                <View key={recipe.id} style={styles.recipeItem}>
+                  <Image
+                    source={{ uri: recipe.recipeImage }}
+                    style={styles.recipeImage}
+                  />
+                  <Text style={styles.recipeName}>{recipe.recipeName}</Text>
+                  <Text style={styles.text2}>{recipe.recipeDetails}</Text>
+                  <Text style={styles.text1}>Ingredients</Text>
+                  <Text style={styles.text}>{recipe.recipeIngredients}</Text>
+                  <Text style={styles.text1}>Instructions</Text>
+                  <Text style={styles.text}>{recipe.recipeInstructions}</Text>
+                </View>
+              ))}
             </View>
           </View>
         </ScrollView>
