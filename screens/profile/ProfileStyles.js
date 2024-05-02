@@ -66,5 +66,13 @@ export default StyleSheet.create({
     accountText: {
         fontSize: 17,
         paddingBottom: 6,
-    }
+    }, 
+
+    recipeImage: {
+        width: 100,
+        height: 100,
+        resizeMode: 'cover',
+        margin: 10,
+      }, 
+      
 })
