@@ -1,57 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, Pressable, ScrollView, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, View, Text, TextInput, Pressable, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import styles from '../../screens/Search/Searchstyles';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase/Config';
+import styles from './Searchstyles'; // Import your styles here
 
-const Search = ({ route }) => {
+const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const navigation = useNavigation();
+  const [expandedCategory, setExpandedCategory] = useState('');
+  const [showCategories, setShowCategories] = useState(true); // Track whether to show categories or search results
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const recipesSnapshot = await getDocs(collection(db, 'recipes'));
-        const fetchedRecipes = recipesSnapshot.docs.map(doc => doc.data());
-        setSearchResults(fetchedRecipes);
-      } catch (error) {
-        console.error('Error retrieving recipes: ', error);
-      }
-    };
-
-    fetchRecipes();
-  }, []);
-
-  useEffect(() => {
-    if (route.params && route.params.searchQuery) {
-      setSearchQuery(route.params.searchQuery);
-    }
-  }, [route.params]);
-
-  const filterRecipes = () => {
-    if (!searchQuery.trim()) {
-      return searchResults;
-    }
-
-    const filteredRecipes = searchResults.filter(recipe => {
-      const recipeName = recipe.recipeName.toLowerCase();
-      return recipeName.includes(searchQuery.toLowerCase());
-    });
-
-    return filteredRecipes;
+  // Define tag options
+  const tagOptions = {
+    Difficulty: [
+      "Easy", "Fewer ingredients", "Under 15 minutes", "Under 30 minutes", "Under 45 minutes", "Under 1 Hour", "Medium-difficult", "Challenging"
+    ],
+    Meal: [
+      "Breakfast", "Desserts", "Drinks", "Lunch", "Sides", "Dinner", "Brunch", "Appetizers", "Baking"
+    ],
+    Diet: [
+      "Vegan", "Fish", "Meat", "Dairy-Free", "Gluten-Free", "Pescetarian", "Dietary"
+    ],
+    Category: [
+      "Pasta", "Rice", "Salad", "Burgers", "Pizza", "Grilled foods", "Soups", "Breads and Rolls", "Cakes"
+    ]
   };
 
-  const navigateToRecipe = (recipe) => {
-    navigation.navigate('Recipe', { recipe });
+  // Function to handle search
+  const handleSearch = () => {
+    setShowCategories(false); // Hide categories when search is performed
+    // Perform search here
+  };
+
+  // Function to expand category
+  const expandCategory = (category) => {
+    setExpandedCategory(expandedCategory === category ? '' : category);
+  };
+
+  // Function to render subcategories
+  const renderSubcategories = (category) => {
+    return (
+      <FlatList
+        data={tagOptions[category]}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => console.log(item)}>
+            <Text style={styles.tagOption}>{item}</Text>
+          </Pressable>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
+    );
+  };
+
+  // Function to render search results
+  const renderSearchResults = () => {
+    // Simulated search results, replace with actual data
+    const searchResults = []; // Replace this with the actual search results
+    return (
+      <FlatList
+        data={searchResults}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => console.log(item)}>
+            <Text>{item.recipeName}</Text> {/* Replace this with the actual recipe name */}
+          </Pressable>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.searchContainer}>
+    <SafeAreaView>
+      <View style={styles.container}>
+        {/* Search bar */}
+        <Pressable style={styles.searchContainer} onPress={handleSearch}>
           <TextInput
             style={styles.searchInput}
             placeholder="Search..."
@@ -59,20 +81,28 @@ const Search = ({ route }) => {
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-          <MaterialIcons name="search" size={24} color="#888" onPress={filterRecipes} />
-        </View>
-
-        <View style={styles.view}>
-          {filterRecipes().map(recipe => (
-            <Pressable key={recipe.id} style={styles.recipeContainer} onPress={() => navigateToRecipe(recipe)}>
-              <View>
-                {recipe.recipeImage && <Image source={{ uri: recipe.recipeImage }} style={styles.image} />}
-                <Text style={styles.recipeName}>{recipe.recipeName}</Text>
-              </View>
-            </Pressable>
-          ))}
-        </View>
-      </ScrollView>
+          {/* Search icon */}
+          <MaterialIcons name="search" size={24} color="#888" />
+        </Pressable>
+      </View>
+      {/* Render categories only if showCategories is true */}
+      {showCategories && (
+        <FlatList
+          data={Object.keys(tagOptions)}
+          renderItem={({ item }) => (
+            <View>
+              <Pressable onPress={() => expandCategory(item)}>
+                <Text style={styles.categoryTitle}>{item}</Text>
+              </Pressable>
+              {/* Render subcategories if the category is expanded */}
+              {expandedCategory === item && renderSubcategories(item)}
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
+      {/* Show search results if showCategories is false */}
+      {!showCategories && renderSearchResults()}
     </SafeAreaView>
   );
 };
