@@ -5,6 +5,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/Config'; // Tarkista tämä importti polkuun, jossa db-objekti sijaitsee
 import styles from './Homestyles';
 import Header from './Header';
+import * as Font from 'expo-font';  // Tuo Font moduuli
+
 
 const Home = ({ navigation, route }) => {
   const [recipes, setRecipes] = useState([]);
@@ -12,8 +14,23 @@ const Home = ({ navigation, route }) => {
   const [appetizerRecipes, setAppetizerRecipes] = useState([]);
   const [dinnerRecipes, setDinnerRecipes] = useState([]);
   const [dessertsRecipes, setDessertsRecipes] = useState([]);
+  const [challengingRecipes, setChallengingRecipes] = useState([]);
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
+
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Raleway-Italic': require('../../assets/Raleway-Italic.ttf'),  // Osoita fonttitiedostoon
+      });
+      setFontsLoaded(true);
+    }
+
+    loadFonts();
+
+
+
     const fetchRecipes = async () => {
       try {
         const recipesSnapshot = await getDocs(collection(db, 'recipes'));
@@ -27,13 +44,22 @@ const Home = ({ navigation, route }) => {
         setDinnerRecipes(filteredDinnerRecipes);
         const filteredDessertsRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Desserts"));
         setDessertsRecipes(filteredDessertsRecipes);
+        const filteredChallengingRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Challenging"));
+        setChallengingRecipes(filteredChallengingRecipes);
       } catch (error) {
         console.error('Error retrieving recipes: ', error);
       }
     };
+    
+    
 
     fetchRecipes();
   }, []);
+
+  if (!fontsLoaded) {
+    return <View><Text>Loading fonts...</Text></View>;  // Näyttää lataustekstin, kunnes fontit on ladattu
+  }
+
 
   const navigateToCategory = (categoryName) => {
     navigation.navigate(categoryName);
@@ -48,6 +74,17 @@ const Home = ({ navigation, route }) => {
       <View>
         {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image} />}
         <Text style={styles.recipeName}>{item.recipeName}</Text>
+      </View>
+    </Pressable>
+  );
+
+
+
+  const renderItem1 = ({ item }) => (
+    <Pressable style={styles.recipeContainer1} onPress={() => navigateToRecipe(item)}>
+      <View>
+        {item.recipeImage && <Image source={{ uri: item.recipeImage }} style={styles.image1} />}
+        <Text style={styles.recipeName1}>{item.recipeName}</Text>
       </View>
     </Pressable>
   );
@@ -84,6 +121,11 @@ const Home = ({ navigation, route }) => {
       <Text style={styles.text2}>{item}</Text>
     </Pressable>
   );
+
+
+  
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -126,7 +168,24 @@ const Home = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
         />
 
-        <Text style={styles.text1}>
+
+
+         <View style={styles.view}>
+
+           <Text style={styles.text77}>3 Different courses</Text>
+
+           <Text style={styles.text78}> In this section you can find the most tasteful recipes for appetizers, dinners and desserts all! </Text>
+
+           <Image
+              source={require('./images/Kolmeruokaa.jpg')}
+              style={styles.food}
+            />
+
+         
+
+
+
+        <Text style={styles.text88}>
           Appetizer Recipes:
         </Text>
         <FlatList
@@ -139,7 +198,7 @@ const Home = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
         />
 
-        <Text style={styles.text1}>
+        <Text style={styles.text8}>
           Dinner Recipes:
         </Text>
         <FlatList
@@ -152,7 +211,7 @@ const Home = ({ navigation, route }) => {
           showsHorizontalScrollIndicator={false}
         />
 
-        <Text style={styles.text1}>
+        <Text style={styles.text8}>
           Dessert Recipes:
         </Text>
         <FlatList
@@ -164,6 +223,21 @@ const Home = ({ navigation, route }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         />
+
+     </View>  
+      
+
+     <Text style={styles.text9}>
+     Are you chef material? Because here are some more challenging recipes:
+        </Text>
+        <FlatList
+          data={challengingRecipes}
+          renderItem={renderItem1}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+      
 
       </ScrollView>
     </SafeAreaView>

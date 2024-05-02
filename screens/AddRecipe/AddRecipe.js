@@ -10,6 +10,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../firebase/Config';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import * as Font from 'expo-font';  // Tuo Font moduuli
+
+
+
 
 const AddRecipe = () => {
   const [user, setUser] = useState(null);
@@ -27,6 +31,8 @@ const AddRecipe = () => {
   });
   const storage = getStorage();
 
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
   const tagOptions = {
     Difficulty: [
       "Easy", "Fewer ingredients", "Under 15 minutes", "Under 30 minutes", "Under 45 minutes", "Under 1 Hour", "Medium-difficult", "Challenging"
@@ -43,6 +49,16 @@ const AddRecipe = () => {
   };
 
   useEffect(() => {
+
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Raleway-Italic': require('../../assets/Raleway-Italic.ttf'),  // Osoita fonttitiedostoon
+      });
+      setFontsLoaded(true);
+    }
+
+    loadFonts();
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });

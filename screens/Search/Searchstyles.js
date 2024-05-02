@@ -11,10 +11,10 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         marginBottom: 150, 
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
+        backgroundColor: '#ECF7D9',
+        borderBottomWidth: 2,
         borderBottomColor: '#ddd',
-
+        
     }, 
 
 
@@ -61,9 +61,7 @@ export default StyleSheet.create({
 
 
   view: {
-
-   
-
+  
   }, 
 
   text1: {
@@ -82,5 +80,8 @@ export default StyleSheet.create({
     
 
   }, 
-  
+  recipeContainer: {
+    marginTop: 20,
+    
+  }
 });
