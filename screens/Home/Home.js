@@ -15,7 +15,8 @@ const Home = ({ navigation, route }) => {
   const [dinnerRecipes, setDinnerRecipes] = useState([]);
   const [dessertsRecipes, setDessertsRecipes] = useState([]);
   const [challengingRecipes, setChallengingRecipes] = useState([]);
-
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
@@ -36,25 +37,24 @@ const Home = ({ navigation, route }) => {
         const recipesSnapshot = await getDocs(collection(db, 'recipes'));
         const fetchedRecipes = recipesSnapshot.docs.map(doc => doc.data());
         setRecipes(fetchedRecipes);
-        const filteredQuickRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Under 30 minutes"));
-        setQuickRecipes(filteredQuickRecipes);
-        const filteredAppetizerRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Appetizers"));
-        setAppetizerRecipes(filteredAppetizerRecipes);
-        const filteredDinnerRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Dinner"));
-        setDinnerRecipes(filteredDinnerRecipes);
-        const filteredDessertsRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Desserts"));
-        setDessertsRecipes(filteredDessertsRecipes);
-        const filteredChallengingRecipes = fetchedRecipes.filter(recipe => recipe.tags && recipe.tags.includes("Challenging"));
-        setChallengingRecipes(filteredChallengingRecipes);
       } catch (error) {
         console.error('Error retrieving recipes: ', error);
       }
     };
-    
-    
-
     fetchRecipes();
   }, []);
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+    const searchFilteredRecipes = recipes.filter(recipe => {
+      return recipe.recipeName.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+    const filteredRecipes = []; // Implement your filtering logic here
+    setSearchResults(searchFilteredRecipes);  };
+
 
   if (!fontsLoaded) {
     return <View><Text>Loading fonts...</Text></View>;  // Näyttää lataustekstin, kunnes fontit on ladattu
@@ -123,18 +123,30 @@ const Home = ({ navigation, route }) => {
   );
 
 
-  
-
-
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Header />
+        <Header searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handleSearch={handleSearch}
+        searchResults={searchResults}/>
+        {searchResults.length > 0 && (
+          <>
+            <Text style={styles.text}>You searched:</Text>
+            <FlatList
+              data={searchResults}
+              renderItem={renderItem}
+              keyExtractor={(item, index) => index.toString()}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
+          </>
+        )}
         <Text style={styles.text}>
           Welcome to FlavorFriends!
         </Text>
-        
+       
+      
         <Text style={styles.text1}>
           Here are some categories for you!
         </Text>

@@ -86,7 +86,7 @@ export default StyleSheet.create({
     fontSize: 22, 
     marginLeft: 40,
     fontFamily: 'Raleway-Italic', 
-   
+    marginTop: 30
   }, 
 
   text1: { //
@@ -223,7 +223,7 @@ text77: {
 
 text78: {
 
-    margintop: 30, 
+    marginTop: 30, 
     marginBottom: 40, 
     textAlign: 'center', 
     fontSize: 26, 

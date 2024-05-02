@@ -1,89 +1,22 @@
-// import React from 'react';
-// import { Text, View, TextInput, Image, Pressable } from 'react-native';
-// import { MaterialIcons, AntDesign } from '@expo/vector-icons';
-// import { useNavigation } from '@react-navigation/native'; // Lisätty
-// import styles from '../../style/style';
-
-// export default function Header() {
-//   const navigation = useNavigation(); // Lisätty
-
-//   const onPressSearch = () => {
-//     navigation.navigate('Search'); // Navigoidaan Search.js-sivulle
-//   };
-
-//   const onPressProfile = () => {
-//     navigation.navigate('Profile'); // Navigoidaan Profile.js-sivulle
-//   };
-
-//   return (
-//     <View style={styles.header}>
-//       {/* Background Image */}
-//       <Image
-//         source={require('../../assets/food2.jpg')}
-//         style={styles.foodImage}
-//       />
-  
-//       <View style={styles.logoContainer}>
-//         {/* Logo */}
-//         <Image
-//           source={require('../../assets/flavorlogo2.png')}
-//           style={styles.logo}
-//         />
-//       </View>
-  
-//       {/* Search Container */}
-//       <Pressable style={styles.searchContainer} onPress={onPressSearch}>
-//         {/* Search Icon */}
-//         <MaterialIcons name="search" size={24} color="#888" />
-//       </Pressable>
-  
-//       {/* Profile Container */}
-//       <Pressable style={styles.profileContainer} onPress={onPressProfile}>
-//         {/* White Circle Background */}
-//         <View style={styles.profileBackground}></View>
-//         {/* Profile Icon */}
-//         <AntDesign name="user" size={31} color="black" />
-//       </Pressable>
-//     </View>
-//   );
-  
-// }
 import React, { useState } from 'react';
-import { Text, View, TextInput, Image, Pressable } from 'react-native';
+import { Text, View, TextInput, Image, Pressable, FlatList } from 'react-native';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../../style/style';
 
-export default function Header() {
+const Header = ({ searchQuery, setSearchQuery, handleSearch, searchResults }) => {
   const navigation = useNavigation();
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const onPressProfile = () => {
-    navigation.navigate('Profile');
-  };
-
-  const handleSearch = () => {
-    if (searchQuery.trim() !== '') {
-      navigation.navigate('Search', { searchQuery });
-    }
-  };
 
   return (
     <View style={styles.header}>
       {/* Background Image */}
-      <Image
-        source={require('../../assets/food2.jpg')}
-        style={styles.foodImage}
-      />
-  
+      <Image source={require('../../assets/food2.jpg')} style={styles.foodImage} />
+
       <View style={styles.logoContainer}>
         {/* Logo */}
-        <Image
-          source={require('../../assets/flavorlogo2.png')}
-          style={styles.logo}
-        />
+        <Image source={require('../../assets/flavorlogo2.png')} style={styles.logo} />
       </View>
-  
+
       {/* Search Container */}
       <View style={styles.searchContainer}>
         {/* Search Input */}
@@ -92,7 +25,7 @@ export default function Header() {
           placeholder="Search..."
           placeholderTextColor="#888"
           value={searchQuery}
-          onChangeText={setSearchQuery}
+          onChangeText={(text) => setSearchQuery(text)}
           onSubmitEditing={handleSearch}
         />
         {/* Search Icon */}
@@ -100,9 +33,9 @@ export default function Header() {
           <MaterialIcons name="search" size={24} color="#888" />
         </Pressable>
       </View>
-  
+
       {/* Profile Container */}
-      <Pressable style={styles.profileContainer} onPress={onPressProfile}>
+      <Pressable style={styles.profileContainer} onPress={() => navigation.navigate('Profile')}>
         {/* White Circle Background */}
         <View style={styles.profileBackground}></View>
         {/* Profile Icon */}
@@ -110,4 +43,6 @@ export default function Header() {
       </Pressable>
     </View>
   );
-}
+};
+
+export default Header;
