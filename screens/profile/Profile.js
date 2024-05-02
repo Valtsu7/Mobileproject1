@@ -5,11 +5,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db, USERS_REF } from '../../firebase/Config';
 import { changePassword, logout, removeUser } from '../../components/Auth';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import ProfilePicture from "./ProfilePicture"
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../profile/ProfileStyles';
 import { ScrollView } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import RecipeDisplay from '../AddRecipe/RecipeDisplay';
 
 const Profile = ({navigation}) => {
 
@@ -19,6 +19,7 @@ const Profile = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmDelete, setConfirmDelete] = useState('');
+  const [addedRecipes, setAddedRecipes] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -41,6 +42,21 @@ const Profile = ({navigation}) => {
         setIsLoggedIn(false);
       }
     });
+  }, []);
+
+  useEffect(() => {
+    // Fetch added recipes from Firebase Firestore
+    const fetchAddedRecipes = async () => {
+      try {
+        const recipesSnapshot = await db.collection('recipes').get();
+        const fetchedRecipes = recipesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAddedRecipes(fetchedRecipes);
+      } catch (error) {
+        console.error('Error fetching added recipes: ', error);
+      }
+    };
+
+    fetchAddedRecipes();
   }, []);
   
   const updateUserData = async () => {
@@ -145,6 +161,17 @@ const Profile = ({navigation}) => {
               />
             </View>
           </View>
+
+          <View>
+        <Text>My Added Recipes</Text>
+        {addedRecipes.length > 0 ? (
+          addedRecipes.map((recipe, index) => (
+            <RecipeDisplay key={index} recipe={recipe} />
+          ))
+        ) : (
+          <Text>No recipes added yet.</Text>
+        )}
+      </View>
 
           <View style={styles.box}>
             <Text style={styles.profileSubheader}>Change password:</Text>
