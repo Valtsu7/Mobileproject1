@@ -23,7 +23,7 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
-    backgroundColor: '#FFAA00', 
+    backgroundColor: '#AFF7AE', 
     
   },
 
@@ -34,6 +34,7 @@ export default StyleSheet.create({
     marginTop: 0,
     marginBottom: 50,
     alignItems: 'center', 
+   
     
   },
 
@@ -48,7 +49,7 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
-    backgroundColor: '#FFAA00', 
+    backgroundColor: '#AFF7AE', 
     
   },
 
@@ -63,15 +64,18 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 20, 
     alignItems: 'center', 
+    
+   
    
     
   },
 
 
   text: { //
-    fontSize: 22, 
+    fontSize: 30, 
     marginTop: 40,
-    marginLeft: 65,
+    textAlign: 'center', 
+    fontWeight: 'bold', 
    
   }, 
 
@@ -81,6 +85,7 @@ export default StyleSheet.create({
     marginRight: 60,
     marginBottom: 15,
     marginTop: 15,  
+    fontFamily: 'Raleway-Italic',
 
   }, 
 
